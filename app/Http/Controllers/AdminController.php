@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Artikel; // pastikan ada import model Artikel
 
 class AdminController extends Controller
 {
@@ -11,10 +12,14 @@ class AdminController extends Controller
         return view('admin.profil'); // Buat file resources/views/admin/profil.blade.php
     }
 
+
+
     public function berita()
     {
-        return view('admin.berita'); // Buat file resources/views/admin/berita.blade.php
+        $artikel = Artikel::all(); // Ambil semua data artikel dari DB
+        return view('admin.berita', compact('artikel'));
     }
+
 
     public function perangkat()
     {

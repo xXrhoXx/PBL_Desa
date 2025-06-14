@@ -13,6 +13,14 @@ class ArtikelController extends Controller
         return view('artikel.index', compact('artikel'));
     }
 
+
+    public function berita()
+    {
+        $artikel = Artikel::all(); // Ambil semua data
+        return view('admin.berita', compact('artikel'));
+    }
+
+
     public function store(Request $request)
     {
         $data = $request->validate([

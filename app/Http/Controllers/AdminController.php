@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class AdminController extends Controller
+{
+    public function profil()
+    {
+        return view('admin.profil'); // Buat file resources/views/admin/profil.blade.php
+    }
+
+    public function berita()
+    {
+        return view('admin.berita'); // Buat file resources/views/admin/berita.blade.php
+    }
+
+    public function perangkat()
+    {
+        return view('admin.perangkat'); // Buat file resources/views/admin/perangkat.blade.php
+    }
+
+    public function produk()
+    {
+        return view('admin.produk'); // Buat file resources/views/admin/produk.blade.php
+    }
+}

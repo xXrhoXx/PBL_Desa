@@ -3,20 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Artikel;
 
 class DesaController extends Controller
 {
     public function home()
     {
-        return view('home');
+    return view('home'); // Ganti 'home' dengan nama view yang kamu pakai
     }
-
-    public function berita()
+    
+    public function berita(Request $request)
     {
-    return view('user.berita');
+    $query = Artikel::query();
+
+    if ($request->has('search')) {
+        $query->where('judul', 'like', '%' . $request->search . '%');
     }
 
+    $artikel = $query->latest()->take(6)->get(); // tampilkan 6 artikel terbaru
 
+    return view('user.berita_user', compact('artikel'));
+    }
 
     public function produk()
     {
@@ -43,7 +50,7 @@ class DesaController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Desa::attempt($credentials)) {
+        if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/home'); // arahkan ke dashboard atau halaman utama
         }
@@ -56,7 +63,7 @@ class DesaController extends Controller
     // Logout
     public function logout(Request $request)
     {
-        Desa::logout();
+        auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');

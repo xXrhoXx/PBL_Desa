@@ -7,41 +7,36 @@ use Illuminate\Http\Request;
 
 class ArtikelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $artikel = Artikel::all();
         return view('artikel.index', compact('artikel'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'judul' => 'required|min:3',
             'jurnalis' => 'required|min:3',
             'deskripsi' => 'required|min:3',
-            'tanggal_terbit' => 'required'
+            'tanggal_terbit' => 'required|integer',
+            'gambar' => 'nullable|image|max:2048', // opsional
         ]);
-        Artikel::create($validated);
+
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar')->store('gambar', 'public');
+            $data['gambar'] = basename($gambar);
+        }
+
+        Artikel::create($data);
         return redirect()->route('artikel.index')->with('success', 'Artikel Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $artikel = Artikel::all();
@@ -49,25 +44,28 @@ class ArtikelController extends Controller
         return view('artikel.index', compact('artikel', 'artikelDetail'));
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'judul' => 'required|min:3',
-            'jurnalis' => 'required|min:3',
-            'deskripsi' => 'required|min:3',
-            'tanggal_terbit' => 'required'
+        $data = $request->validate([
+            'judul' => 'required',
+            'jurnalis' => 'required',
+            'deskripsi' => 'required',
+            'tanggal_terbit' => 'required|integer',
+            'gambar' => 'nullable|image|max:2048',
         ]);
-        Artikel::where('id', $id)->update($validated);
+
+        $artikel = Artikel::findOrFail($id);
+
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar')->store('gambar', 'public');
+            $data['gambar'] = basename($gambar);
+        }
+
+        $artikel->update($data);
+
         return redirect()->route('artikel.index')->with('success', 'Artikel Berhasil Diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $artikelDetail = Artikel::findOrFail($id);

@@ -13,7 +13,7 @@ class ArtikelController extends Controller
 {
     $artikel = Artikel::all();
 
-    // Ambil data dari Facebook
+    
     $pageId = env('FACEBOOK_PAGE_ID');
     $accessToken = env('FACEBOOK_PAGE_ACCESS_TOKEN');
 
@@ -38,7 +38,7 @@ class ArtikelController extends Controller
             }
         }
 
-        // Refresh data artikel setelah tambah
+        
         $artikel = Artikel::all();
     }
 
@@ -88,6 +88,21 @@ class ArtikelController extends Controller
         return redirect()->route('artikel.index')->with('success', 'Artikel Berhasil Ditambahkan');
     }
 
+    public function destroy($id)
+{
+    $artikel = Artikel::findOrFail($id);
+
+    
+    if ($artikel->gambar && \Storage::exists($artikel->gambar)) {
+        \Storage::delete($artikel->gambar);
+    }
+
+    $artikel->delete();
+
+    return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dihapus.');
+}
+
+
     public function edit($id)
 {
     $artikelDetail = Artikel::findOrFail($id);
@@ -109,13 +124,13 @@ class ArtikelController extends Controller
     ]);
 
     if ($request->hasFile('gambar')) {
-        // Hapus gambar lama kalau ada
+        
         if ($artikel->gambar && file_exists(public_path('storage/' . $artikel->gambar))) {
             unlink(public_path('storage/' . $artikel->gambar));
         }
 
         $gambar = $request->file('gambar')->store('gambar', 'public');
-        $data['gambar'] = $gambar; // BENAR! simpan "gambar/namafile.jpg"
+        $data['gambar'] = $gambar; 
 
     }
 

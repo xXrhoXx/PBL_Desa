@@ -34,9 +34,10 @@ Route::post('/logout', [DesaController::class, 'logout'])->name('logout');
 // CRUD artikel
 Route::get('/artikel', [ArtikelController::class,'index'])->name('artikel.index');
 Route::post('/artikel', [ArtikelController::class,'store'])->name('artikel.store');
-Route::get('/artikel/{id}/edit', [ArtikelController::class,'edit'])->name('artikel.edit');
-Route::put('/artikel/{id}/update', [ArtikelController::class,'update'])->name('artikel.update');
-Route::delete('/artikel/{id}/delete', [ArtikelController::class,'destroy'])->name('artikel.delete');
+Route::get('/artikel/edit/{id}', [ArtikelController::class, 'edit'])->name('artikel.edit');
+Route::put('/artikel', [ArtikelController::class,'update'])->name('artikel');
+Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('artikel.delete');
+
 
 // Cetak PDF
 Route::get('/cetak', [CetakPDF_Controller::class,'index'])->name('cetak.index');

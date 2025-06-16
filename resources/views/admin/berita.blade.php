@@ -33,7 +33,7 @@
                     <th>Jurnalis</th>
                     <th>Deskripsi</th>
                     <th>Tahun Terbit</th>
-                    <th>Aksi</th>
+                    <th>Gambar</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,27 +45,14 @@
                         <td>{{ $item->deskripsi }}</td>
                         <td>{{ $item->tanggal_terbit }}</td>
                         <td>
-                            
-        <div class="card mb-3">
-        <div class="row g-0">
-            <div class="col-md-4">
-                @if ($item->gambar)
-                    <img src="{{ asset('storage/' . $item->gambar) }}" class="img-fluid rounded-start" alt="gambar artikel">
-                @else
-                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid rounded-start" alt="default">
-                @endif
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $item->judul }}</h5>
-                    <p class="card-text">{{ $item->deskripsi }}</p>
-                    <p class="card-text"><small class="text-muted">Jurnalis: {{ $item->jurnalis }} | {{ $item->tanggal_terbit }}</small></p>
-                </div>
-            </div>
-        </div>
-    </div>
-@endforeach
-
+                            @if ($item->gambar)
+                                <img src="{{ asset('storage/' . $item->gambar) }}" width="100" alt="Gambar">
+                            @else
+                                <img src="{{ asset('images/default.jpg') }}" width="100" alt="Default">
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -73,7 +60,7 @@
     {{-- Form Tambah/Edit Artikel --}}
     <div class="mt-4 p-3 bg-light rounded">
         <h3>{{ isset($artikelDetail) ? 'Edit Artikel' : 'Tambah Artikel' }}</h3>
-        <form action="{{ isset($artikelDetail) ? route('artikel.update', $artikelDetail->id) : route('artikel.store') }}" method="POST">
+        <form action="{{ isset($artikelDetail) ? route('artikel.update', $artikelDetail->id) : route('artikel.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if (isset($artikelDetail))
                 @method('PUT')
@@ -95,6 +82,16 @@
                 <label for="tanggal_terbit" class="form-label">Tahun Terbit</label>
                 <input type="number" class="form-control" id="tanggal_terbit" name="tanggal_terbit" min="1900" max="2099" value="{{ old('tanggal_terbit', $artikelDetail->tanggal_terbit ?? '') }}" required>
             </div>
+            <div class="mb-3">
+                <label for="gambar" class="form-label">Gambar Artikel</label>
+                <input type="file" class="form-control" id="gambar" name="gambar" {{ isset($artikelDetail) ? '' : 'required' }}>
+                @if(isset($artikelDetail) && $artikelDetail->gambar)
+                    <div class="mt-2">
+                        <img src="{{ asset('storage/' . $artikelDetail->gambar) }}" width="120" alt="Gambar Artikel">
+                    </div>
+                @endif
+            </div>
+
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>

@@ -107,8 +107,8 @@
                 @foreach($perangkat as $anggota)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card border-0 shadow-sm h-100">
-                        <div class="card-img-top team-img" style="background-image: url('https://via.placeholder.com/400x400'); height: 300px; background-size: cover; background-position: center;"></div>
-                        <div class="card-body text-center">
+                        <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
+                    <div class="card-body text-center">
                             <h5 class="card-title mb-1">{{ $anggota['nama'] }}</h5>
                             <p class="text-muted small">{{ $anggota['jabatan'] }}</p>
                             <div class="d-flex justify-content-center">
@@ -135,7 +135,7 @@
                 @for($i = 1; $i <= 6; $i++)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produk {{ $i }}">
+                        <img src="{{ asset('images/beras.jpg') }}" class="card-img-top" alt="Produk {{ $i }}" style="max-width: 500px; height: auto;">
                         <div class="card-body">
                             <h5 class="card-title">Produk Desa {{ $i }}</h5>
                             <p class="card-text">Deskripsi produk {{ $i }}. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>

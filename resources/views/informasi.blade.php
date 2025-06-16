@@ -16,7 +16,7 @@
                     <!-- Anggota 1 -->
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card border-0 shadow-sm h-100">
-                            <div class="card-img-top team-img" style="background-image: url('https://via.placeholder.com/400x400');"></div>
+                            <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
                             <div class="card-body text-center">
                                 <h5 class="card-title mb-1">Asep Saefullah</h5>
                                 <p class="text-muted small">Kepala Desa</p>
@@ -31,7 +31,7 @@
                     <!-- Anggota 2 -->
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card border-0 shadow-sm h-100">
-                            <div class="card-img-top team-img" style="background-image: url('https://via.placeholder.com/400x400');"></div>
+                           <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
                             <div class="card-body text-center">
                                 <h5 class="card-title mb-1">Aulia Naresti</h5>
                                 <p class="text-muted small">Sekretaris Desa</p>
@@ -46,7 +46,7 @@
                     <!-- Anggota 3 -->
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card border-0 shadow-sm h-100">
-                            <div class="card-img-top team-img" style="background-image: url('https://via.placeholder.com/400x400');"></div>
+                            <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
                             <div class="card-body text-center">
                                 <h5 class="card-title mb-1">Nabila Aminatun</h5>
                                 <p class="text-muted small">Bendahara Desa</p>
@@ -61,7 +61,7 @@
                     <!-- Anggota 4 -->
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card border-0 shadow-sm h-100">
-                            <div class="card-img-top team-img" style="background-image: url('https://via.placeholder.com/400x400');"></div>
+                           <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
                             <div class="card-body text-center">
                                 <h5 class="card-title mb-1">Bintang Shallahudin</h5>
                                 <p class="text-muted small">Kasi Pemerintahan</p>
@@ -76,7 +76,7 @@
                     <!-- Anggota 5 -->
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card border-0 shadow-sm h-100">
-                            <div class="card-img-top team-img" style="background-image: url('https://via.placeholder.com/400x400');"></div>
+                           <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
                             <div class="card-body text-center">
                                 <h5 class="card-title mb-1">David Aditya</h5>
                                 <p class="text-muted small">Kasi Kesejahteraan</p>
@@ -91,7 +91,7 @@
                     <!-- Anggota 6 -->
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card border-0 shadow-sm h-100">
-                            <div class="card-img-top team-img" style="background-image: url('https://via.placeholder.com/400x400');"></div>
+                           <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
                             <div class="card-body text-center">
                                 <h5 class="card-title mb-1">Daffa Hafid</h5>
                                 <p class="text-muted small">Kasi Pelayanan</p>

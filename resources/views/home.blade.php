@@ -18,7 +18,28 @@
                     <a href="#perangkat" class="btn btn-outline-primary btn-lg">Perangkat Desa</a>
                 </div>
                 <div class="col-lg-6">
-                    <img src="{{ asset('img/dekorasi.jpg') }}" alt="Dekorasi Desa" class="img-fluid rounded shadow-lg">
+                    <!-- Carousel -->
+                    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                        <div class="carousel-inner rounded shadow-lg">
+                            <div class="carousel-item active">
+                                <img src="{{ asset('images/sungai.jpg') }}" class="d-block w-100" alt="Gambar 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('images/rafting.jpg') }}" class="d-block w-100" alt="Gambar 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('images/camp.jpg') }}" class="d-block w-100" alt="Gambar 3">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Sebelumnya</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Berikutnya</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

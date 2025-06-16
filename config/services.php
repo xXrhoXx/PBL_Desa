@@ -13,6 +13,11 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'facebook' => [
+    'page_id' => env('FB_PAGE_ID'),
+    'access_token' => env('FB_PAGE_ACCESS_TOKEN'),
+],
+
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),

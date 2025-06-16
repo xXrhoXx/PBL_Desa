@@ -17,7 +17,9 @@
         @forelse ($artikel as $item)
         <div class="col">
             <div class="card h-100 shadow-sm">
-                <img src="{{ asset('storage/gambar/' . $item->gambar) }}" class="card-img-top" alt="Gambar Artikel" style="height: 200px; object-fit: cover;">
+                <img src="{{ asset('storage/' . $item->gambar) }}" ...>
+
+
                 <div class="card-body">
                     <h5 class="card-title">{{ $item->judul }}</h5>
                     <p class="card-text"><small>Oleh {{ $item->jurnalis }} - {{ $item->tanggal_terbit }}</small></p>

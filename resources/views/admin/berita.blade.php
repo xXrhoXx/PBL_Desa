@@ -45,19 +45,27 @@
                         <td>{{ $item->deskripsi }}</td>
                         <td>{{ $item->tanggal_terbit }}</td>
                         <td>
-                            <a href="{{ route('artikel.edit', $item->id) }}" class="btn btn-sm btn-warning">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <form action="{{ route('artikel.delete', $item->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger">
-                                    <i class="fas fa-trash-alt"></i> Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
+                            
+        <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                @if ($item->gambar)
+                    <img src="{{ asset('storage/' . $item->gambar) }}" class="img-fluid rounded-start" alt="gambar artikel">
+                @else
+                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid rounded-start" alt="default">
+                @endif
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $item->judul }}</h5>
+                    <p class="card-text">{{ $item->deskripsi }}</p>
+                    <p class="card-text"><small class="text-muted">Jurnalis: {{ $item->jurnalis }} | {{ $item->tanggal_terbit }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
             </tbody>
         </table>
     </div>

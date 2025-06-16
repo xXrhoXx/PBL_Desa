@@ -6,6 +6,7 @@ use App\Http\Controllers\CetakPDF_Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
+
 // view frondtend
 Route::get('/admin/dashboard', function () {
     return view('home');
@@ -41,3 +42,34 @@ Route::delete('/artikel/{id}/delete', [ArtikelController::class,'destroy'])->nam
 Route::get('/cetak', [CetakPDF_Controller::class,'index'])->name('cetak.index');
 Route::get('/cetak/SPKV', [CetakPDF_Controller::class,'SPKV_pdf'])->name('cetak.SPKV');
 Route::get('/cetak/tes', [CetakPDF_Controller::class,'tes_pdf'])->name('cetak.tes');
+
+Route::get('/fb/upload', [FacebookController::class, 'postPhoto']);
+Route::get('/post-to-facebook', function () {
+    $pageAccessToken = 'EAAQZB8ZBpM11ABO7KXUTQCwKf3DSehPK1KpcNaI2u6HQEQ0mBZAbrZBl5VWBdvY21zmHZAnZBZApUBtrQneHZB1eCJrzJZC2MGtqXLKCcXJdAif9FKUYpSg2W7wOZBG4RY3HOSpAbgxtoSe545DiLS2fnYEpuBnZAhabQviTD0etGwUZBHNW5E1MWQZAVlY9SrhrQYsn5jynAEOdv
+';  // Ganti tokenmu
+    $pageId = '664056573459099';
+    $imagePath = public_path('image.jpg'); // letakkan image.jpg di folder /public
+
+    if (!file_exists($imagePath)) {
+        return "File tidak ditemukan: $imagePath";
+    }
+
+    $photo = new CURLFile($imagePath, mime_content_type($imagePath), basename($imagePath));
+    $data = [
+        'access_token' => $pageAccessToken,
+        'source' => $photo,
+        'caption' => 'Upload dari Laravel',
+        'published' => 'true'
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/$pageId/photos");
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    $err = curl_error($ch);
+    curl_close($ch);
+
+    return $err ? "cURL Error: $err" : "Response: $response";
+});

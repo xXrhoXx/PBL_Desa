@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
 
-
+//cuy
 Route::get('/admin/dashboard', function () {
     return view('home');
 })->name('admin.dashboard');

@@ -12,8 +12,55 @@ class ArtikelController extends Controller
     public function index()
 {
     $artikel = Artikel::all();
+
+    // Ambil data dari Facebook
+    $pageId = env('FACEBOOK_PAGE_ID');
+    $accessToken = env('FACEBOOK_PAGE_ACCESS_TOKEN');
+
+    $fbResponse = Http::get("https://graph.facebook.com/{$pageId}/posts", [
+        'access_token' => $accessToken,
+        'fields' => 'id,message,created_time,full_picture,permalink_url'
+    ]);
+
+    if ($fbResponse->successful()) {
+        $fbPosts = $fbResponse->json('data');
+
+        foreach ($fbPosts as $post) {
+            $cek = Artikel::where('deskripsi', $post['message'] ?? '')->first();
+            if (!$cek) {
+                Artikel::create([
+                    'judul' => Str::limit($post['message'] ?? 'Judul Otomatis', 30),
+                    'jurnalis' => 'Facebook Page',
+                    'deskripsi' => $post['message'] ?? '-',
+                    'tanggal_terbit' => \Carbon\Carbon::parse($post['created_time'])->format('Y'),
+                    'gambar' => $this->simpanGambarDariUrl($post['full_picture'] ?? null),
+                ]);
+            }
+        }
+
+        // Refresh data artikel setelah tambah
+        $artikel = Artikel::all();
+    }
+
+
     return view('artikel.index', compact('artikel'));
 }
+
+    private function simpanGambarDariUrl($url)
+{
+    if (!$url) return null;
+
+    try {
+        $contents = file_get_contents($url);
+        $namaFile = 'artikel/' . uniqid() . '.jpg';
+        \Storage::disk('public')->put($namaFile, $contents);
+        return $namaFile;
+    } catch (\Exception $e) {
+        return null;
+    }
+}
+
+
 
     public function store(Request $request)
     {
@@ -76,6 +123,27 @@ class ArtikelController extends Controller
 
     return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui');
 }
+
+public function fetchFacebookPosts()
+{
+    $pageId = config('services.facebook.page_id');
+    $accessToken = config('services.facebook.access_token');
+
+    $response = Http::get("https://graph.facebook.com/{$pageId}/posts", [
+        'access_token' => $accessToken,
+        'fields' => 'id,message,created_time,full_picture,permalink_url'
+    ]);
+
+    if ($response->failed()) {
+        \Log::error("Gagal mengambil postingan Facebook: " . $response->body());
+        return back()->with('error', 'Gagal mengambil data dari Facebook');
+    }
+
+    $posts = $response->json('data');
+
+    return view('admin.facebook_posts', compact('posts'));
+}
+
 
 
    private function postToFacebook($artikel)

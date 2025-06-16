@@ -49,9 +49,9 @@ Route::get('/facebook-posts', [ArtikelController::class, 'fetchFacebookPosts'])-
 Route::get('/fb/upload', [FacebookController::class, 'postPhoto']);
 Route::get('/post-to-facebook', function () {
     $pageAccessToken = 'EAAQZB8ZBpM11ABO7KXUTQCwKf3DSehPK1KpcNaI2u6HQEQ0mBZAbrZBl5VWBdvY21zmHZAnZBZApUBtrQneHZB1eCJrzJZC2MGtqXLKCcXJdAif9FKUYpSg2W7wOZBG4RY3HOSpAbgxtoSe545DiLS2fnYEpuBnZAhabQviTD0etGwUZBHNW5E1MWQZAVlY9SrhrQYsn5jynAEOdv
-';  // Ganti tokenmu
+';  
     $pageId = '664056573459099';
-    $imagePath = public_path('image.jpg'); // letakkan image.jpg di folder /public
+    $imagePath = public_path('image.jpg'); 
 
     if (!file_exists($imagePath)) {
         return "File tidak ditemukan: $imagePath";

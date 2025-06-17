@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Artikel;
+use App\Models\PerangkatDesa; 
 
 class DesaController extends Controller
 {
@@ -68,4 +69,51 @@ class DesaController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+
+// Tampilkan semua perangkat desa
+public function perangkatIndex()
+{
+    $perangkat = PerangkatDesa::all();
+    return view('admin.perangkat', compact('perangkat'));
+}
+
+// Simpan perangkat desa baru
+public function perangkatStore(Request $request)
+{
+    $request->validate([
+        'nama' => 'required',
+        'jabatan' => 'required',
+        'kontak' => 'required',
+        'foto' => 'required|image|max:2048',
+    ]);
+
+    $fotoPath = $request->file('foto')->store('perangkat', 'public');
+
+    PerangkatDesa::create([
+        'nama' => $request->nama,
+        'jabatan' => $request->jabatan,
+        'kontak' => $request->kontak,
+        'foto' => $fotoPath,
+    ]);
+
+    return redirect()->back()->with('success', 'Perangkat berhasil ditambahkan');
+}
+
+
+// Hapus perangkat desa
+public function perangkatDestroy($id)
+{
+    $perangkat = PerangkatDesa::findOrFail($id);
+
+    // Hapus file foto dari storage (opsional)
+    if ($perangkat->foto && \Storage::disk('public')->exists($perangkat->foto)) {
+        \Storage::disk('public')->delete($perangkat->foto);
+    }
+
+    $perangkat->delete();
+
+    return redirect()->back()->with('success', 'Perangkat berhasil dihapus');
+}
+
 }

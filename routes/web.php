@@ -12,10 +12,13 @@ Route::get('/admin/dashboard', function () {
     return view('home');
 })->name('admin.dashboard');
 
+Route::get('/admin/perangkat', [DesaController::class, 'perangkatIndex'])->name('admin.perangkat');
+Route::post('/admin/perangkat', [DesaController::class, 'perangkatStore'])->name('perangkat.store');
+Route::delete('/admin/perangkat/{id}', [DesaController::class, 'perangkatDestroy'])->name('perangkat.destroy');
+
 
 Route::get('/admin/profil', [AdminController::class, 'profil'])->name('admin.profil');
 Route::get('/admin/berita', [AdminController::class, 'berita'])->name('admin.berita');
-Route::get('/admin/perangkat', [AdminController::class, 'perangkat'])->name('admin.perangkat');
 Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');
 
 
@@ -35,7 +38,7 @@ Route::post('/logout', [DesaController::class, 'logout'])->name('logout');
 Route::get('/artikel', [ArtikelController::class,'index'])->name('artikel.index');
 Route::post('/artikel', [ArtikelController::class,'store'])->name('artikel.store');
 Route::get('/artikel/edit/{id}', [ArtikelController::class, 'edit'])->name('artikel.edit');
-Route::put('/artikel', [ArtikelController::class,'update'])->name('artikel');
+Route::put('/artikel/{id}', [ArtikelController::class,'update'])->name('artikel.update');
 Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('artikel.delete');
 
 

@@ -21,11 +21,6 @@ class AdminController extends Controller
     }
 
 
-    public function perangkat()
-    {
-        return view('admin.perangkat'); // Buat file resources/views/admin/perangkat.blade.php
-    }
-
     public function produk()
     {
         return view('admin.produk'); // Buat file resources/views/admin/produk.blade.php

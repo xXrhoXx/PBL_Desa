@@ -46,6 +46,9 @@ Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('art
 Route::get('/cetak', [CetakPDF_Controller::class,'index'])->name('cetak.index');
 Route::get('/cetak/SPKV', [CetakPDF_Controller::class,'SPKV_pdf'])->name('cetak.SPKV');
 Route::get('/cetak/tes', [CetakPDF_Controller::class,'tes_pdf'])->name('cetak.tes');
+Route::get('/cetak/SPKV/formSPKV', [CetakPDF_Controller::class,'formSPKV'])->name('form.SPKV');
+Route::get('/form-cetak', [CetakPDF_Controller::class, 'showForm'])->name('form-cetak');
+Route::post('/cetak-pdf', [CetakPDF_Controller::class, 'generatePdf'])->name('cetak-pdf');
 
 
 Route::get('/facebook-posts', [ArtikelController::class, 'fetchFacebookPosts'])->name('facebook.posts');

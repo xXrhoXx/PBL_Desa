@@ -5,6 +5,8 @@ use App\Http\Controllers\DesaController;
 use App\Http\Controllers\CetakPDF_Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\ProdukController;
 
 
 //cuy
@@ -20,6 +22,7 @@ Route::delete('/admin/perangkat/{id}', [DesaController::class, 'perangkatDestroy
 Route::get('/admin/profil', [AdminController::class, 'profil'])->name('admin.profil');
 Route::get('/admin/berita', [AdminController::class, 'berita'])->name('admin.berita');
 Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');
+//Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');
 
 
 Route::get('/', [DesaController::class, 'home'])->name('home');
@@ -55,9 +58,9 @@ Route::get('/facebook-posts', [ArtikelController::class, 'fetchFacebookPosts'])-
 Route::get('/fb/upload', [FacebookController::class, 'postPhoto']);
 Route::get('/post-to-facebook', function () {
     $pageAccessToken = 'EAAQZB8ZBpM11ABO7KXUTQCwKf3DSehPK1KpcNaI2u6HQEQ0mBZAbrZBl5VWBdvY21zmHZAnZBZApUBtrQneHZB1eCJrzJZC2MGtqXLKCcXJdAif9FKUYpSg2W7wOZBG4RY3HOSpAbgxtoSe545DiLS2fnYEpuBnZAhabQviTD0etGwUZBHNW5E1MWQZAVlY9SrhrQYsn5jynAEOdv
-';  
+';
     $pageId = '664056573459099';
-    $imagePath = public_path('image.jpg'); 
+    $imagePath = public_path('image.jpg');
 
     if (!file_exists($imagePath)) {
         return "File tidak ditemukan: $imagePath";
@@ -81,4 +84,10 @@ Route::get('/post-to-facebook', function () {
     curl_close($ch);
 
     return $err ? "cURL Error: $err" : "Response: $response";
+
+
+
+
+    Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk.user');
+
 });

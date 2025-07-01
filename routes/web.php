@@ -24,6 +24,7 @@ Route::get('/produk-admin', [DesaController::class, 'produk'])->name('produk.adm
 Route::post('/admin/produk', [ProdukController::class, 'store'])->name('produk.store');
 Route::put('/admin/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 Route::delete('/admin/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+Route::get('/admin/produk', [ProdukController::class, 'produkAdmin'])->name('admin.produk');
 
 
 

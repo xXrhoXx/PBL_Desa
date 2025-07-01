@@ -178,15 +178,17 @@ class ArtikelController extends Controller
     }
 
     public function updateFacebookPost(Request $request, $postId)
-    {
-        $accessToken = config('services.facebook.access_token');
-        $response = Http::post("https://graph.facebook.com/{$postId}", [
-            'access_token' => $accessToken,
-            'message' => $request->caption,
-        ]);
+{
+    $accessToken = config('services.facebook.access_token');
 
-        return redirect()->back()->with('success', 'Post berhasil diperbarui.');
-    }
+    $response = \Http::post("https://graph.facebook.com/{$postId}", [
+        'access_token' => $accessToken,
+        'message' => $request->caption,
+    ]);
+
+    return redirect()->route('artikel.index')->with('success', 'Post berhasil diperbarui.');
+}
+
 
     private function postToFacebook($artikel)
     {

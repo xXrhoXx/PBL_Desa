@@ -88,9 +88,13 @@ public function berita(Request $request)
 }
 
     // Tampilkan form login
-    public function showLoginForm()
+    // public function showLoginForm()
+    // {
+    //     return view('login');
+    // }
+    public function tesLogin()
     {
-        return view('login');
+        return view('tes');
     }
 
     // Proses login

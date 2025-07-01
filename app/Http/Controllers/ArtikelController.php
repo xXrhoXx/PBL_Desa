@@ -38,6 +38,7 @@ class ArtikelController extends Controller
         }
     }
 
+
     // Mapping artikel dari DB supaya mirip struktur dengan FB post
     $artikelLocal = $artikelDB->map(function ($a) {
         return [
@@ -52,10 +53,12 @@ class ArtikelController extends Controller
     });
 
     // Gabungkan
-    $artikelGabung = $fbPosts + $artikelLocal->toArray();
+    $artikelGabung = collect($fbPosts)->merge($artikelLocal)->toArray();
+
 
     return view('artikel.index', ['artikelGabung' => $artikelGabung]);
 }
+
 
 
     private function simpanGambarDariUrl($url)

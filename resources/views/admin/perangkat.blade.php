@@ -82,6 +82,13 @@
 
 
 <script>
+function toggleForm() {
+    document.getElementById('formTitle').innerText = 'Tambah Data Perangkat Desa';
+    document.getElementById('formPerangkat').reset();
+    document.getElementById('formPerangkat').action = `{{ route('perangkat.store') }}`;
+    document.getElementById('formMethod').value = ''; // biarkan kosong agar tetap POST
+    document.getElementById('formTambah').style.display = 'block';
+}
 function editPerangkat(id, nama, jabatan, kontak) {
     const form = document.getElementById('formPerangkat');
     document.getElementById('formTitle').innerText = 'Edit Data Perangkat';

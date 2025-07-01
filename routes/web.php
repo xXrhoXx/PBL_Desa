@@ -22,6 +22,11 @@ Route::delete('/admin/perangkat/{id}', [DesaController::class, 'perangkatDestroy
 Route::get('/admin/profil', [AdminController::class, 'profil'])->name('admin.profil');
 Route::get('/admin/berita', [AdminController::class, 'berita'])->name('admin.berita');
 Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');
+Route::get('/admin/fb/edit/{id}', [ArtikelController::class, 'editFacebookPost'])->name('fb.edit');
+Route::delete('/admin/fb/delete/{id}', [ArtikelController::class, 'deleteFacebookPost'])->name('fb.delete');
+Route::post('/admin/fb/update/{postId}', [ArtikelController::class, 'updateFacebookPost'])->name('fb.update');
+
+
 //Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');
 
 

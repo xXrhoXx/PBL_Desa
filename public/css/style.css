@@ -1,4 +1,6 @@
-/* Custom Styles */
+/* ======================
+    Variabel Warna
+====================== */
 :root {
     --primary-color: #2c7744;
     --secondary-color: #5aaf6f;
@@ -6,16 +8,21 @@
     --light-color: #e8f5e9;
 }
 
+/* ======================
+    Global
+====================== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
     color: #333;
 }
 
-/* Custom Navbar */
+/* ======================
+    Navbar
+====================== */
 .custom-navbar {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     padding: 15px 0;
 }
 
@@ -53,7 +60,9 @@ body {
     color: white;
 }
 
-/* Custom Footer */
+/* ======================
+    Footer
+====================== */
 .custom-footer {
     background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
     color: white;
@@ -78,7 +87,9 @@ body {
     color: var(--secondary-color);
 }
 
-/* Team Section Styles */
+/* ======================
+    Team Section
+====================== */
 .team-img {
     height: 250px;
     background-size: cover;
@@ -90,12 +101,15 @@ body {
     transform: scale(1.05);
 }
 
+/* ======================
+    Judul Section
+====================== */
 .section-title {
     position: relative;
     padding-bottom: 15px;
 }
 
-.section-title:after {
+.section-title::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -105,9 +119,11 @@ body {
     background-color: var(--secondary-color);
 }
 
-/* Card Styles */
+/* ======================
+    Kartu Artikel & Hover
+====================== */
 .card {
-    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: none;
     border-radius: 10px;
@@ -116,34 +132,45 @@ body {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive adjustments */
+/* ======================
+    Responsive
+====================== */
 @media (max-width: 768px) {
     .custom-navbar .navbar-brand {
         font-size: 1.2rem;
     }
-    
+
     .team-img {
         height: 200px;
     }
-    
+
     .section-title {
         text-align: center;
     }
-    
-    .section-title:after {
+
+    .section-title::after {
         left: 50%;
         transform: translateX(-50%);
     }
-    
+
     .custom-navbar .navbar-collapse {
         padding-top: 15px;
     }
-    
+
     .custom-navbar .btn {
         width: 100%;
         margin-top: 10px;
     }
+}
+
+/* ======================
+    Hilangkan panah SVG besar dari pagination Laravel
+====================== */
+nav[role="navigation"] svg {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
 }

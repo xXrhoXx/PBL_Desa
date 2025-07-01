@@ -52,10 +52,55 @@
                             @endif
                         </td>
                     </tr>
-                @endforeach
+                                @endforeach
             </tbody>
         </table>
     </div>
+
+    {{-- Tambahkan setelah tabel artikel --}}
+    @if (isset($fbPosts) && count($fbPosts) > 0)
+        <h2 class="mt-5">Postingan Facebook</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th>FB Post ID</th>
+                        <th>Pesan</th>
+                        <th>Gambar</th>
+                        <th>Dibuat</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($fbPosts as $fb)
+                        <tr>
+                            <td>{{ $fb['id'] ?? '-' }}</td>
+                            <td>{{ $fb['message'] ?? '(Tanpa teks)' }}</td>
+                            <td>
+                                @if(isset($fb['full_picture']))
+                                    <img src="{{ $fb['full_picture'] }}" alt="Gambar FB" width="100">
+                                @endif
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($fb['created_time'])->translatedFormat('d M Y, H:i') }}</td>
+                            <td>
+                                <a href="{{ route('fb.edit', ['id' => $fb['id']]) }}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <form action="{{ route('fb.delete', ['id' => $fb['id']]) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus postingan ini dari Facebook?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash-alt"></i> Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
 
     {{-- Form Tambah/Edit Artikel --}}
     <div class="mt-4 p-3 bg-light rounded">

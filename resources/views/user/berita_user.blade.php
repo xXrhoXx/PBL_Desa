@@ -17,13 +17,15 @@
         @forelse ($artikel as $item)
         <div class="col">
             <div class="card h-100 shadow-sm">
-                <img src="{{ asset('storage/' . $item->gambar) }}" ...>
-
-
+                @if ($item['gambar'])
+                    <img src="{{ Str::startsWith($item['gambar'], 'http') ? $item['gambar'] : asset('storage/' . $item['gambar']) }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                @endif
                 <div class="card-body">
-                    <h5 class="card-title">{{ $item->judul }}</h5>
-                    <p class="card-text"><small>Oleh {{ $item->jurnalis }} - {{ $item->tanggal_terbit }}</small></p>
-                    <p class="card-text">{{ Str::limit($item->deskripsi, 100) }}</p>
+                    <h5 class="card-title">{{ $item['judul'] }}</h5>
+                    <p class="card-text">
+                        <small>Oleh {{ $item['jurnalis'] }} - {{ $item['tanggal_terbit'] }}</small>
+                    </p>
+                    <p class="card-text">{{ \Illuminate\Support\Str::limit($item['deskripsi'], 100) }}</p>
                 </div>
             </div>
         </div>
@@ -32,6 +34,11 @@
             <p class="text-center">Tidak ada artikel ditemukan.</p>
         </div>
         @endforelse
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-4 d-flex justify-content-center">
+        {{ $artikel->links() }}
     </div>
 </div>
 @endsection

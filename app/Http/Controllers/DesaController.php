@@ -5,26 +5,75 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
 use App\Models\PerangkatDesa; 
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class DesaController extends Controller
 {
-    public function home()
-    {
-    return view('home'); // Ganti 'home' dengan nama view yang kamu pakai
-    }
-    
-    public function berita(Request $request)
-    {
-    $query = Artikel::query();
+public function berita(Request $request)
+{
+    $search = $request->search;
 
-    if ($request->has('search')) {
-        $query->where('judul', 'like', '%' . $request->search . '%');
+    // Artikel dari database
+    $query = \App\Models\Artikel::query();
+    if ($search) {
+        $query->where('judul', 'like', '%' . $search . '%');
     }
 
-    $artikel = $query->latest()->take(6)->get(); // tampilkan 6 artikel terbaru
+    $artikelDB = $query->get()->map(function ($a) {
+        return [
+            'judul' => $a->judul,
+            'jurnalis' => $a->jurnalis,
+            'deskripsi' => $a->deskripsi,
+            'tanggal_terbit' => $a->tanggal_terbit,
+            'gambar' => $a->gambar ? asset('storage/' . $a->gambar) : null,
+            'is_facebook' => false,
+        ];
+    });
 
-    return view('user.berita_user', compact('artikel'));
+    // Artikel dari Facebook
+    $fbPosts = [];
+    $pageId = config('services.facebook.page_id');
+    $accessToken = config('services.facebook.access_token');
+
+    $response = Http::get("https://graph.facebook.com/{$pageId}/posts", [
+        'access_token' => $accessToken,
+        'fields' => 'id,message,created_time,full_picture,permalink_url'
+    ]);
+
+    if ($response->successful()) {
+        foreach ($response->json('data') as $post) {
+            if ($search && !Str::contains(Str::lower($post['message'] ?? ''), Str::lower($search))) {
+                continue;
+            }
+
+            $fbPosts[] = [
+                'judul' => Str::limit($post['message'] ?? 'Tanpa Judul', 30),
+                'jurnalis' => 'Facebook Page',
+                'deskripsi' => $post['message'] ?? '-',
+                'tanggal_terbit' => \Carbon\Carbon::parse($post['created_time'])->format('Y'),
+                'gambar' => $post['full_picture'] ?? null,
+                'is_facebook' => true,
+            ];
+        }
     }
+
+    // Gabungkan dan sort berdasarkan tahun terbit
+    $gabungan = collect($fbPosts)->merge($artikelDB)->sortByDesc('tanggal_terbit')->values();
+
+    // Manual paginate
+    $perPage = 9;
+    $currentPage = LengthAwarePaginator::resolveCurrentPage();
+    $currentItems = $gabungan->slice(($currentPage - 1) * $perPage, $perPage)->all();
+    $paginated = new LengthAwarePaginator($currentItems, $gabungan->count(), $perPage, $currentPage, [
+        'path' => $request->url(),
+        'query' => $request->query()
+    ]);
+
+    return view('user/berita_user', ['artikel' => $paginated]);
+}
 
     public function produk()
     {

@@ -9,18 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('produks', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_produk');
-            $table->text('deskripsi');
-            $table->integer('harga');
-            $table->string('kontak');
-            $table->string('gambar');
-            $table->timestamps();
-        });
-    }
+public function up()
+{
+    Schema::create('produk', function (Blueprint $table) {
+        $table->id();
+        $table->string('nama');
+        $table->text('deskripsi');
+        $table->string('harga');
+        $table->string('kontak');
+        $table->string('gambar')->nullable();
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

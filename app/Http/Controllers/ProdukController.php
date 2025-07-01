@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
-    // Tampilkan semua produk
+    // Tampilkan semua produk (API)
     public function index()
     {
         return Produk::all();
@@ -29,7 +29,7 @@ class ProdukController extends Controller
         $path = $request->file('gambar')->store('produk', 'public');
 
         // Simpan data produk
-        $produk = Produk::create([
+        Produk::create([
             'nama_produk' => $request->nama_produk,
             'deskripsi'   => $request->deskripsi,
             'harga'       => $request->harga,
@@ -37,10 +37,10 @@ class ProdukController extends Controller
             'gambar'      => $path,
         ]);
 
-        return response()->json($produk, 201);
+        return redirect()->route('admin.produk')->with('success', 'Produk berhasil ditambahkan');
     }
 
-    // Tampilkan detail produk
+    // Tampilkan detail produk (API)
     public function show($id)
     {
         $produk = Produk::findOrFail($id);
@@ -66,30 +66,42 @@ class ProdukController extends Controller
         $produk->harga       = $request->harga;
         $produk->kontak      = $request->kontak;
 
-        // Kalau gambar baru dikirim
         if ($request->hasFile('gambar')) {
+            if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
+                Storage::disk('public')->delete($produk->gambar);
+            }
             $path = $request->file('gambar')->store('produk', 'public');
             $produk->gambar = $path;
         }
 
         $produk->save();
 
-        return response()->json($produk);
+        return redirect()->route('admin.produk')->with('success', 'Produk berhasil diupdate');
     }
+
     // Hapus produk
     public function destroy($id)
     {
         $produk = Produk::findOrFail($id);
-        Storage::disk('public')->delete($produk->gambar);
+        if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
+            Storage::disk('public')->delete($produk->gambar);
+        }
         $produk->delete();
 
-        return response()->json(['message' => 'Produk berhasil dihapus']);
+        return redirect()->route('admin.produk')->with('success', 'Produk berhasil dihapus');
     }
 
-    public function produkAdmin()
-    {
-        $produk = Produk::latest()->get();
-        return view('admin.produk');
-    }
+    // Tampilkan ke halaman admin
+public function produkAdmin()
+{
+    $produk = Produk::all();
+    return view('admin.produk', compact('produk'));
+}
+
+public function produkUser()
+{
+    $produk = Produk::all(); // ambil semua produk dari database
+    return view('produk', compact('produk')); // sesuaikan dengan nama view
+}
 
 }

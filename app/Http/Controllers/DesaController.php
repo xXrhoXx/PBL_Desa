@@ -82,9 +82,10 @@ public function berita(Request $request)
     }
 
     public function informasi()
-    {
-        return view('informasi');
-    }
+{
+    $perangkat = PerangkatDesa::all();
+    return view('informasi', compact('perangkat'));
+}
 
     // Tampilkan form login
     public function showLoginForm()
@@ -164,5 +165,36 @@ public function perangkatDestroy($id)
 
     return redirect()->back()->with('success', 'Perangkat berhasil dihapus');
 }
+public function perangkatUpdate(Request $request, $id)
+{
+    $request->validate([
+        'nama' => 'required',
+        'jabatan' => 'required',
+        'kontak' => 'required',
+        'foto' => 'nullable|image|max:2048',
+    ]);
+
+    $perangkat = PerangkatDesa::findOrFail($id);
+
+    $perangkat->nama = $request->nama;
+    $perangkat->jabatan = $request->jabatan;
+    $perangkat->kontak = $request->kontak;
+
+    if ($request->hasFile('foto')) {
+        // Hapus foto lama jika ada
+        if ($perangkat->foto && \Storage::disk('public')->exists($perangkat->foto)) {
+            \Storage::disk('public')->delete($perangkat->foto);
+        }
+
+        // Simpan foto baru
+        $fotoBaru = $request->file('foto')->store('perangkat', 'public');
+        $perangkat->foto = $fotoBaru;
+    }
+
+    $perangkat->save();
+
+    return redirect()->back()->with('success', 'Data perangkat berhasil diperbarui');
+}
+
 
 }

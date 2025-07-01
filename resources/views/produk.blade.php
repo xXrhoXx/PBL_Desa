@@ -7,21 +7,29 @@
     <h1 class="text-center mb-4">Produk Unggulan Desa</h1>
 
     <div class="row">
-        @for($i = 1; $i <= 6; $i++)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="{{ asset('images/beras.jpg') }}" class="card-img-top" alt="Produk {{ $i }}" style="max-width: 500px; height: auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">Produk Desa {{ $i }}</h5>
-                            <p class="card-text">Deskripsi produk {{ $i }}. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="text-success fw-bold">Rp {{ number_format(rand(10000, 100000), 0, ',', '.') }}</p>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <button class="btn btn-success w-100">Pesan Sekarang</button>
-                        </div>
-                    </div>
+        @forelse ($produk as $p)
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow">
+                <img src="{{ asset('storage/' . $p->gambar) }}" class="card-img-top" alt="{{ $p->nama_produk }}" style="max-width: 100%; height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $p->nama_produk }}</h5>
+                    <p class="card-text">{{ $p->deskripsi }}</p>
+                    <p class="text-success fw-bold">Rp {{ number_format($p->harga, 0, ',', '.') }}</p>
                 </div>
-                @endfor
+                <div class="card-footer bg-white">
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $p->kontak) }}?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20{{ urlencode($p->nama_produk) }}" 
+                       target="_blank" 
+                       class="btn btn-success w-100">
+                        Hubungi via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+        @empty
+        <div class="col-12">
+            <p class="text-center">Belum ada produk yang tersedia.</p>
+        </div>
+        @endforelse
     </div>
 </div>
 @endsection

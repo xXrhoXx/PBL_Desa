@@ -17,11 +17,18 @@ Route::get('/admin/dashboard', function () {
 Route::get('/admin/perangkat', [DesaController::class, 'perangkatIndex'])->name('admin.perangkat');
 Route::post('/admin/perangkat', [DesaController::class, 'perangkatStore'])->name('perangkat.store');
 Route::delete('/admin/perangkat/{id}', [DesaController::class, 'perangkatDestroy'])->name('perangkat.destroy');
+Route::put('/admin/perangkat/{id}', [DesaController::class, 'perangkatUpdate'])->name('perangkat.update');
+
+Route::get('/admin/produk', [ProdukController::class, 'produkAdmin'])->name('admin.produk');
+Route::post('/admin/produk', [ProdukController::class, 'store'])->name('produk.store');
+Route::put('/admin/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
+Route::delete('/admin/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+
+
 
 
 Route::get('/admin/profil', [AdminController::class, 'profil'])->name('admin.profil');
 Route::get('/admin/berita', [AdminController::class, 'berita'])->name('admin.berita');
-Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');
 Route::get('/admin/fb/edit/{id}', [ArtikelController::class, 'editFacebookPost'])->name('fb.edit');
 Route::delete('/admin/fb/delete/{id}', [ArtikelController::class, 'deleteFacebookPost'])->name('fb.delete');
 Route::post('/admin/fb/update/{postId}', [ArtikelController::class, 'updateFacebookPost'])->name('fb.update');
@@ -35,6 +42,8 @@ Route::get('/berita', [DesaController::class, 'berita'])->name('berita');
 Route::get('/kontak', [DesaController::class, 'kontak'])->name('kontak');
 Route::get('/produk', [DesaController::class, 'produk'])->name('produk');
 Route::get('/informasi', [DesaController::class, 'informasi'])->name('informasi');
+Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk');
+
 
 
 Route::get('/login', [DesaController::class, 'showLoginForm'])->name('login');

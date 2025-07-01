@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    
+
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -21,20 +23,21 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="bg-white border-end" style="width: 200px; min-height: 100vh;">
-            <ul class="nav flex-column p-3">
-                <li class="nav-item mb-2">
-                    <a class="nav-link text-dark" href="{{ route('admin.profil') }}">Profil Desa</a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link text-dark" href="{{ route('admin.berita') }}">Berita</a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link text-dark" href="{{ route('admin.perangkat') }}">Perangkat Desa</a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link text-dark" href="{{ route('admin.produk') }}">Produk</a>
-                </li>
-            </ul>
+<ul class="nav flex-column p-3">
+    <li class="nav-item mb-2">
+        <a class="nav-link text-dark" href="{{ route('admin.profil') }}">Profil Desa</a>
+    </li>
+    <li class="nav-item mb-2">
+        <a class="nav-link text-dark" href="{{ route('artikel.index') }}">Berita</a> {{-- Ganti ini --}}
+    </li>
+    <li class="nav-item mb-2">
+        <a class="nav-link text-dark" href="{{ route('admin.perangkat') }}">Perangkat Desa</a>
+    </li>
+    <li class="nav-item mb-2">
+        <a class="nav-link text-dark" href="{{ route('admin.produk') }}">Produk</a>
+    </li>
+</ul>
+
         </div>
 
         <!-- Main Content -->

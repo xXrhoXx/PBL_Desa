@@ -8,10 +8,20 @@ use App\Models\PerangkatDesa;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Produk;
+
 
 
 class DesaController extends Controller
 {
+public function home()
+{
+    $produk = Produk::latest()->take(6)->get(); 
+    $perangkat = PerangkatDesa::all(); 
+
+    return view('home', compact('produk', 'perangkat'));
+}
+
 public function berita(Request $request)
 {
     $search = $request->search;

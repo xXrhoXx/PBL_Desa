@@ -19,7 +19,8 @@ Route::post('/admin/perangkat', [DesaController::class, 'perangkatStore'])->name
 Route::delete('/admin/perangkat/{id}', [DesaController::class, 'perangkatDestroy'])->name('perangkat.destroy');
 Route::put('/admin/perangkat/{id}', [DesaController::class, 'perangkatUpdate'])->name('perangkat.update');
 
-Route::get('/admin/produk', [ProdukController::class, 'produkAdmin'])->name('admin.produk');
+Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk');
+Route::get('/produk-admin', [DesaController::class, 'produk'])->name('produk.admin');
 Route::post('/admin/produk', [ProdukController::class, 'store'])->name('produk.store');
 Route::put('/admin/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 Route::delete('/admin/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
@@ -42,7 +43,7 @@ Route::get('/berita', [DesaController::class, 'berita'])->name('berita');
 Route::get('/kontak', [DesaController::class, 'kontak'])->name('kontak');
 Route::get('/produk', [DesaController::class, 'produk'])->name('produk');
 Route::get('/informasi', [DesaController::class, 'informasi'])->name('informasi');
-Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk');
+
 
 
 

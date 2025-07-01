@@ -84,7 +84,7 @@
         </div>
     </section>
 
-    <!-- Perangkat Desa Section -->
+        <!-- Perangkat Desa Section -->
     <section id="perangkat" class="py-5 mb-5">
         <div class="container">
             <div class="text-center mb-4">
@@ -93,32 +93,26 @@
             </div>
 
             <div class="row justify-content-center">
-                @php
-                    $perangkat = [
-                        ['nama' => 'Asep Saefullah', 'jabatan' => 'Kepala Desa'],
-                        ['nama' => 'Aulia Naresti', 'jabatan' => 'Sekretaris Desa'],
-                        ['nama' => 'Nabila Aminatun', 'jabatan' => 'Bendahara Desa'],
-                        ['nama' => 'Bintang Shallahudin', 'jabatan' => 'Kasi Pemerintahan'],
-                        ['nama' => 'David Aditya', 'jabatan' => 'Kasi Kesejahteraan'],
-                        ['nama' => 'Daffa Hafid', 'jabatan' => 'Kasi Pelayanan'],
-                    ];
-                @endphp
-
-                @foreach($perangkat as $anggota)
+                @forelse ($perangkat as $p)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card border-0 shadow-sm h-100">
-                        <div class="card-img-top team-img" style="background-image: url('{{ asset('images/profil.jpg') }}'); height: 300px; background-size: cover; background-position: center;"></div>
-                    <div class="card-body text-center">
-                            <h5 class="card-title mb-1">{{ $anggota['nama'] }}</h5>
-                            <p class="text-muted small">{{ $anggota['jabatan'] }}</p>
+                        <div class="card-img-top team-img" style="background-image: url('{{ asset('storage/' . $p->foto) }}'); height: 300px; background-size: cover; background-position: center;"></div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-1">{{ $p->nama }}</h5>
+                            <p class="text-muted small">{{ $p->jabatan }}</p>
                             <div class="d-flex justify-content-center">
-                                <a href="#" class="btn btn-sm btn-outline-secondary mx-1"><i class="bi bi-envelope"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-telephone"></i></a>
+                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $p->kontak) }}" target="_blank" class="btn btn-sm btn-outline-success mx-1">
+                                    <i class="bi bi-whatsapp"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                @endforeach
+                @empty
+                <div class="col-12 text-center">
+                    <p>Belum ada data perangkat desa.</p>
+                </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -132,25 +126,30 @@
             </div>
 
             <div class="row">
-                @for($i = 1; $i <= 6; $i++)
+                @forelse ($produk as $p)
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="{{ asset('images/beras.jpg') }}" class="card-img-top" alt="Produk {{ $i }}" style="max-width: 500px; height: auto;">
+                    <div class="card h-100 shadow">
+                        <img src="{{ asset('storage/' . $p->gambar) }}" class="card-img-top" alt="{{ $p->nama_produk }}" style="max-width: 100%; height: 250px; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title">Produk Desa {{ $i }}</h5>
-                            <p class="card-text">Deskripsi produk {{ $i }}. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <p class="text-success fw-bold">Rp {{ number_format(rand(10000, 100000), 0, ',', '.') }}</p>
+                            <h5 class="card-title">{{ $p->nama_produk }}</h5>
+                            <p class="card-text">{{ $p->deskripsi }}</p>
+                            <p class="text-success fw-bold">Rp {{ number_format($p->harga, 0, ',', '.') }}</p>
                         </div>
                         <div class="card-footer bg-white">
-                            <button class="btn btn-success w-100">Pesan Sekarang</button>
+                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $p->kontak) }}" target="_blank" class="btn btn-success w-100">
+                                Hubungi: {{ $p->kontak }}
+                            </a>
                         </div>
                     </div>
                 </div>
-                @endfor
+                @empty
+                <div class="col-12 text-center">
+                    <p>Belum ada produk tersedia.</p>
+                </div>
+                @endforelse
             </div>
         </div>
     </section>
 
 </main>
-
 @endsection

@@ -86,10 +86,10 @@ public function berita(Request $request)
 }
 
     public function produk()
-    {
-        // Anda bisa menambahkan logika untuk mengambil data produk dari database di sini
-        return view('produk');
-    }
+{
+    $produk = Produk::all(); 
+    return view('produk', compact('produk')); 
+}
 
     public function informasi()
 {

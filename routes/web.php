@@ -50,21 +50,23 @@ Route::get('/informasi', [DesaController::class, 'informasi'])->name('informasi'
 Route::get('/login', [DesaController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [DesaController::class, 'login']);
 Route::post('/logout', [DesaController::class, 'logout'])->name('logout');
+//tes login
+Route::get('/tes', [DesaController::class, 'tesLogin']);
 
 
 // CRUD artikel
-Route::get('/artikel', [ArtikelController::class,'index'])->name('artikel.index');
-Route::post('/artikel', [ArtikelController::class,'store'])->name('artikel.store');
+Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
+Route::post('/artikel', [ArtikelController::class, 'store'])->name('artikel.store');
 Route::get('/artikel/edit/{id}', [ArtikelController::class, 'edit'])->name('artikel.edit');
-Route::put('/artikel/{id}', [ArtikelController::class,'update'])->name('artikel.update');
+Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
 Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('artikel.delete');
 
 
 // Cetak PDF
-Route::get('/cetak', [CetakPDF_Controller::class,'index'])->name('cetak.index');
-Route::get('/cetak/SPKV', [CetakPDF_Controller::class,'SPKV_pdf'])->name('cetak.SPKV');
-Route::get('/cetak/tes', [CetakPDF_Controller::class,'tes_pdf'])->name('cetak.tes');
-Route::get('/cetak/SPKV/formSPKV', [CetakPDF_Controller::class,'formSPKV'])->name('form.SPKV');
+Route::get('/cetak', [CetakPDF_Controller::class, 'index'])->name('cetak.index');
+Route::get('/cetak/SPKV', [CetakPDF_Controller::class, 'SPKV_pdf'])->name('cetak.SPKV');
+Route::get('/cetak/tes', [CetakPDF_Controller::class, 'tes_pdf'])->name('cetak.tes');
+Route::get('/cetak/SPKV/formSPKV', [CetakPDF_Controller::class, 'formSPKV'])->name('form.SPKV');
 Route::get('/form-cetak', [CetakPDF_Controller::class, 'showForm'])->name('form-cetak');
 Route::post('/cetak-pdf', [CetakPDF_Controller::class, 'generatePdf'])->name('cetak-pdf');
 
@@ -104,5 +106,4 @@ Route::get('/post-to-facebook', function () {
 
 
     Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk.user');
-
 });

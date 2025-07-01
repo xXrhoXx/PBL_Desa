@@ -94,8 +94,6 @@
 </head>
 <body>
 
-    @include('layouts.navbar')
-
     <div class="header">
         <div class="kop-container">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Lambang_Kabupaten_Malang.png" alt="Logo" class="logo">
@@ -141,7 +139,6 @@
         <div class="nama">AHMAD MUSLIMIN</div>
     </div>
 
-    @include('layouts.footer')
 
 </body>
 </html>

@@ -100,8 +100,8 @@
                     <label>Kontak</label>
                     <input type="text" name="kontak" id="kontakInput" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button" class="btn btn-secondary" onclick="resetForm()">Batal</button>
+                <button type="submit" class="btn btn-success">Simpan</button>
+                <button type="button" class="btn btn-danger" onclick="resetForm()">Batal</button>
             </form>
         </div>
     </div>

@@ -38,7 +38,7 @@
 
     <!-- Pagination -->
     <div class="mt-4 d-flex justify-content-center">
-        {{ $artikel->links() }}
+        {{ $artikel->onEachSide(1)->links('pagination.custom') }}
     </div>
 </div>
 @endsection

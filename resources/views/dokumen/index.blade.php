@@ -14,7 +14,7 @@
         <h1 class="mb-4 fw-bold">Selamat Datang</h1>
 
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-success text-white">
                 <h5 class="mb-0">Daftar Dokumen</h5>
             </div>
             <div class="card-body p-0">

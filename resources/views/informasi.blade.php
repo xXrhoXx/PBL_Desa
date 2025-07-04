@@ -24,12 +24,12 @@
                             <p class="text-muted small">{{ $orang->jabatan }}</p>
                             <div class="d-flex justify-content-center">
                                 @if($orang->email)
-                                    <a href="mailto:{{ $orang->email }}" class="btn btn-sm btn-outline-secondary mx-1">
+                                    <a href="mailto:{{ $orang->email }}" class="btn btn-sm btn-outline-success mx-1">
                                         <i class="bi bi-envelope"></i>
                                     </a>
                                 @endif
                                 @if($orang->telepon)
-                                    <a href="tel:{{ $orang->telepon }}" class="btn btn-sm btn-outline-primary mx-1">
+                                    <a href="tel:{{ $orang->telepon }}" class="btn btn-sm btn-outline-success mx-1">
                                         <i class="bi bi-telephone"></i>
                                     </a>
                                 @endif
@@ -47,7 +47,7 @@
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card h-100">
-                <div class="card-header bg-info text-white">
+                <div class="card-header bg-success text-white">
                     <h5>Profil Desa</h5>
                 </div>
                 <div class="card-body">
@@ -65,7 +65,7 @@
         <!-- Struktur Pemerintahan -->
         <div class="col-md-6 mb-4">
             <div class="card h-100">
-                <div class="card-header bg-info text-white">
+                <div class="card-header bg-success text-white">
                     <h5>Struktur Pemerintahan</h5>
                 </div>
                 <div class="card-body">
@@ -83,13 +83,13 @@
         <!-- Visi dan Misi -->
         <div class="col-12 mb-4">
             <div class="card">
-                <div class="card-header bg-info text-white">
+                <div class="card-header bg-success text-white">
                     <h5>Visi dan Misi Desa</h5>
                 </div>
                 <div class="card-body">
                     <h6>Visi:</h6>
                     <p>"Mewujudkan Desa Kita yang mandiri, sejahtera, dan berbudaya melalui pemberdayaan masyarakat berbasis potensi lokal."</p>
-                    
+
                     <h6 class="mt-3">Misi:</h6>
                     <ol>
                         <li>Meningkatkan kualitas sumber daya manusia</li>

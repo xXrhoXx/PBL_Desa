@@ -18,8 +18,8 @@
                 </div>
                 <div class="card-footer bg-white">
                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $p->kontak) }}?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20{{ urlencode($p->nama_produk) }}" 
-                       target="_blank" 
-                       class="btn btn-success w-100">
+                        target="_blank" 
+                        class="btn btn-success w-100">
                         Hubungi via WhatsApp
                     </a>
                 </div>

@@ -102,28 +102,12 @@ public function berita(Request $request)
     // {
     //     return view('login');
     // }
-    public function tesLogin()
+    public function Login()
     {
-        return view('tes');
+        return view('login');
     }
 
-    // Proses login
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
 
-        if (auth()->attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/home'); // arahkan ke dashboard atau halaman utama
-        }
-
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->onlyInput('email');
-    }
 
     // Logout
     public function logout(Request $request)

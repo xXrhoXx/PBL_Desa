@@ -25,7 +25,27 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cetak.index') ? 'active text-white' : '' }}" href="{{ route('cetak.index') }}">Dokumen</a>
                     </li>
+                    
+                    @php
+                        $isLoggedIn = isset($_COOKIE['token']) && !empty($_COOKIE['token']);
+                    @endphp
 
+                    @if ($isLoggedIn)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('login') ? 'active text-white' : '' }}" href="{{ route('login') }}">Login</a>
+                        </li>
+                    @endif
+                    
                 </ul>
             </div>
         </div>

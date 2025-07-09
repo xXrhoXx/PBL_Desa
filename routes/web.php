@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\ArtikelController;
-use App\Http\Controllers\DesaController;
-use App\Http\Controllers\CetakPDF_Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DesaController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\CetakPDF_Controller;
 
 
 //cuy
@@ -14,26 +16,26 @@ Route::get('/admin/dashboard', function () {
     return view('home');
 })->name('admin.dashboard');
 
-Route::get('/admin/perangkat', [DesaController::class, 'perangkatIndex'])->name('admin.perangkat');
-Route::post('/admin/perangkat', [DesaController::class, 'perangkatStore'])->name('perangkat.store');
-Route::delete('/admin/perangkat/{id}', [DesaController::class, 'perangkatDestroy'])->name('perangkat.destroy');
-Route::put('/admin/perangkat/{id}', [DesaController::class, 'perangkatUpdate'])->name('perangkat.update');
+Route::get('/admin/perangkat', [DesaController::class, 'perangkatIndex'])->name('admin.perangkat')->middleware(AdminMiddleware::class);
+Route::post('/admin/perangkat', [DesaController::class, 'perangkatStore'])->name('perangkat.store')->middleware(AdminMiddleware::class);
+Route::delete('/admin/perangkat/{id}', [DesaController::class, 'perangkatDestroy'])->name('perangkat.destroy')->middleware(AdminMiddleware::class);
+Route::put('/admin/perangkat/{id}', [DesaController::class, 'perangkatUpdate'])->name('perangkat.update')->middleware(AdminMiddleware::class);
 
-Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk');
-Route::get('/produk-admin', [DesaController::class, 'produk'])->name('produk.admin');
-Route::post('/admin/produk', [ProdukController::class, 'store'])->name('produk.store');
-Route::put('/admin/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
-Route::delete('/admin/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
-Route::get('/admin/produk', [ProdukController::class, 'produkAdmin'])->name('admin.produk');
-
-
+// Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk');
+Route::get('/produk-admin', [DesaController::class, 'produk'])->name('produk.admin')->middleware(AdminMiddleware::class);
+Route::post('/admin/produk', [ProdukController::class, 'store'])->name('produk.store')->middleware(AdminMiddleware::class);
+Route::put('/admin/produk/{id}', [ProdukController::class, 'update'])->name('produk.update')->middleware(AdminMiddleware::class);
+Route::delete('/admin/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy')->middleware(AdminMiddleware::class);
+Route::get('/admin/produk', [ProdukController::class, 'produkAdmin'])->name('admin.produk')->middleware(AdminMiddleware::class);
 
 
-Route::get('/admin/profil', [AdminController::class, 'profil'])->name('admin.profil');
-Route::get('/admin/berita', [AdminController::class, 'berita'])->name('admin.berita');
-Route::get('/admin/fb/edit/{id}', [ArtikelController::class, 'editFacebookPost'])->name('fb.edit');
-Route::delete('/admin/fb/delete/{id}', [ArtikelController::class, 'deleteFacebookPost'])->name('fb.delete');
-Route::post('/admin/fb/update/{postId}', [ArtikelController::class, 'updateFacebookPost'])->name('fb.update');
+
+
+Route::get('/admin/profil', [AdminController::class, 'profil'])->name('admin.profil')->middleware(AdminMiddleware::class);
+Route::get('/admin/berita', [AdminController::class, 'berita'])->name('admin.berita')->middleware(AdminMiddleware::class);
+Route::get('/admin/fb/edit/{id}', [ArtikelController::class, 'editFacebookPost'])->name('fb.edit')->middleware(AdminMiddleware::class);
+Route::delete('/admin/fb/delete/{id}', [ArtikelController::class, 'deleteFacebookPost'])->name('fb.delete')->middleware(AdminMiddleware::class);
+Route::post('/admin/fb/update/{postId}', [ArtikelController::class, 'updateFacebookPost'])->name('fb.update')->middleware(AdminMiddleware::class);
 
 
 //Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');
@@ -48,11 +50,15 @@ Route::get('/informasi', [DesaController::class, 'informasi'])->name('informasi'
 
 
 
-Route::get('/login', [DesaController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [DesaController::class, 'login']);
-Route::post('/logout', [DesaController::class, 'logout'])->name('logout');
-//tes login
-Route::get('/tes', [DesaController::class, 'tesLogin']);
+
+
+//real login
+Route::get('/login', [DesaController::class, 'Login'])->name('login');
+// logout
+Route::post('/logout', function () {
+    return redirect()->route('home')->withCookie(cookie()->forget('token'));
+})->name('logout');
+
 
 
 // CRUD artikel
@@ -64,14 +70,15 @@ Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('art
 
 
 // Cetak PDF
-Route::get('/cetak', [CetakPDF_Controller::class, 'index'])->name('cetak.index');
-Route::get('/cetak/SPKV', [CetakPDF_Controller::class, 'SPKV_pdf'])->name('cetak.SPKV');
-Route::get('/cetak/tes', [CetakPDF_Controller::class, 'tes_pdf'])->name('cetak.tes');
-Route::get('/cetak/SPKV/formSPKV', [CetakPDF_Controller::class, 'formSPKV'])->name('form.SPKV');
-Route::get('/form-cetak', [CetakPDF_Controller::class, 'showForm'])->name('form-cetak');
-Route::post('/cetak-pdf', [CetakPDF_Controller::class, 'generatePdf'])->name('cetak-pdf');
+Route::get('/cetak', [CetakPDF_Controller::class, 'index'])->name('cetak.index')->middleware(UserMiddleware::class);
 
+Route::get('/cetak/SPKV', [CetakPDF_Controller::class, 'SPKV_pdf'])->name('cetak.SPKV')->middleware(UserMiddleware::class);
+Route::get('/cetak/tes', [CetakPDF_Controller::class, 'tes_pdf'])->name('cetak.tes')->middleware(UserMiddleware::class);
+Route::get('/cetak/SPKV/formSPKV', [CetakPDF_Controller::class, 'formSPKV'])->name('form.SPKV')->middleware(UserMiddleware::class);
+Route::get('/form-cetak', [CetakPDF_Controller::class, 'showForm'])->name('form-cetak')->middleware(UserMiddleware::class);
+Route::post('/cetak-pdf', [CetakPDF_Controller::class, 'generatePdf'])->name('cetak-pdf')->middleware(UserMiddleware::class);
 
+// facebook
 Route::get('/facebook-posts', [ArtikelController::class, 'fetchFacebookPosts'])->name('facebook.posts');
 Route::get('/fb/upload', [FacebookController::class, 'postPhoto']);
 Route::get('/post-to-facebook', function () {
@@ -102,9 +109,6 @@ Route::get('/post-to-facebook', function () {
     curl_close($ch);
 
     return $err ? "cURL Error: $err" : "Response: $response";
-
-
-
 
     Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk.user');
 });

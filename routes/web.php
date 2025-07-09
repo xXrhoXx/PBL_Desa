@@ -56,7 +56,9 @@ Route::get('/informasi', [DesaController::class, 'informasi'])->name('informasi'
 Route::get('/login', [DesaController::class, 'Login'])->name('login');
 // logout
 Route::post('/logout', function () {
-    return redirect()->route('home')->withCookie(cookie()->forget('token'));
+    return redirect()->route('home')
+        ->withCookie(cookie()->forget('token'))
+        ->withCookie(cookie()->forget('role'));
 })->name('logout');
 
 

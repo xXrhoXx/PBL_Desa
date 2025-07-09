@@ -28,6 +28,7 @@
                     
                     @php
                         $isLoggedIn = isset($_COOKIE['token']) && !empty($_COOKIE['token']);
+                        $isAdmin = isset($_COOKIE['role']) && $_COOKIE['role'] === '1';
                     @endphp
 
                     @if ($isLoggedIn)
@@ -45,7 +46,13 @@
                             <a class="nav-link {{ request()->routeIs('login') ? 'active text-white' : '' }}" href="{{ route('login') }}">Login</a>
                         </li>
                     @endif
-                    
+                    @if ($isAdmin)
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin/profil') ? 'active text-white' : '' }}" href="{{ route('admin.profil') }}">Admin</a>
+                        </li>
+                    @else
+                        <li class="nav-item"></li>
+                    @endif
                 </ul>
             </div>
         </div>

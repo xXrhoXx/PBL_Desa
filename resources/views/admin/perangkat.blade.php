@@ -74,8 +74,8 @@
                 <label for="kontak" class="form-label">Kontak</label>
                 <input type="text" name="kontak" class="form-control" id="kontakInput" required>
             </div>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <button type="button" class="btn btn-secondary" onclick="resetForm()">Batal</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="button" class="btn btn-danger" onclick="resetForm()">Batal</button>
         </form>
     </div>
 </div>
@@ -98,7 +98,7 @@ function editPerangkat(id, nama, jabatan, kontak) {
     document.getElementById('kontakInput').value = kontak;
 
     form.action = `/admin/perangkat/${id}`;
-    
+
     // pastikan input hidden _method punya nilai 'PUT'
     document.getElementById('formMethod').value = 'PUT';
 
@@ -114,7 +114,7 @@ function resetForm() {
     form.action = `{{ route('perangkat.store') }}`;
     document.getElementById('formMethod').value = ''; // kosongkan supaya tetap POST
     document.getElementById('fotoInput').value = '';
-    
+
     document.getElementById('formTambah').style.display = 'none';
 }
 

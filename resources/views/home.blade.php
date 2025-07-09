@@ -14,8 +14,8 @@
                 <div class="col-lg-6">
                     <h1 class="display-4 fw-bold mb-4">Selamat Datang di Wringin Anom</h1>
                     <p class="lead mb-4">Desa yang maju dengan masyarakat yang sejahtera dan berbudaya</p>
-                    <a href="#tentang" class="btn btn-primary btn-lg me-2">Tentang Kami</a>
-                    <a href="#perangkat" class="btn btn-outline-primary btn-lg">Perangkat Desa</a>
+                    <a href="#tentang" class="btn btn-success btn-lg me-2">Tentang Kami</a>
+                    <a href="#perangkat" class="btn btn-outline-success btn-lg">Perangkat Desa</a>
                 </div>
                 <div class="col-lg-6">
                     <!-- Carousel -->
@@ -54,7 +54,7 @@
                     <p class="lead">Desa kami adalah komunitas yang kaya akan budaya dan tradisi, dengan masyarakat yang ramah dan bersahabat.</p>
                     <p>Terletak di wilayah yang subur dengan pemandangan alam yang indah, desa kami memiliki berbagai potensi baik di bidang pertanian, kerajinan tangan, maupun wisata alam. Kami berkomitmen untuk mengembangkan desa secara berkelanjutan dengan melestarikan kearifan lokal.</p>
                     <p>Dengan semangat gotong royong yang kuat, kami terus membangun infrastruktur dan meningkatkan kesejahteraan masyarakat desa.</p>
-                    <a href="{{ route('informasi') }}" class="btn btn-primary mt-3">Selengkapnya</a>
+                    <a href="{{ route('informasi') }}" class="btn btn-success mt-3">Selengkapnya</a>
                 </div>
                 <div class="col-lg-6">
                     <div class="row g-3">

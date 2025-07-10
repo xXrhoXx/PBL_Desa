@@ -39,9 +39,16 @@
                         </tr>
                         <tr>
                             <td class="text-center">2</td>
-                            <td>Tes</td>
+                            <td>Surat Keterangan Tidak Mampu</td>
                             <td class="text-center">
-                                <a href="{{ route('cetak.tes') }}" class="btn btn-sm btn-success">Cetak</a>
+                                <a href="{{ route('form.ketTidakMampu') }}" class="btn btn-sm btn-success">Cetak</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Surat Keterangan Belum Menikah</td>
+                            <td class="text-center">
+                                <a href="{{ route('form.ketBelumMenikah') }}" class="btn btn-sm btn-success">Cetak</a>
                             </td>
                         </tr>
                     </tbody>

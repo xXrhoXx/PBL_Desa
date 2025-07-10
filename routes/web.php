@@ -71,14 +71,20 @@ Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel
 Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('artikel.delete');
 
 
-// Cetak PDF
+// Cetak PDF halaman awal
 Route::get('/cetak', [CetakPDF_Controller::class, 'index'])->name('cetak.index')->middleware(UserMiddleware::class);
-
+// halaman file pdfnya
 Route::get('/cetak/SPKV', [CetakPDF_Controller::class, 'SPKV_pdf'])->name('cetak.SPKV')->middleware(UserMiddleware::class);
-Route::get('/cetak/tes', [CetakPDF_Controller::class, 'tes_pdf'])->name('cetak.tes')->middleware(UserMiddleware::class);
-Route::get('/cetak/SPKV/formSPKV', [CetakPDF_Controller::class, 'formSPKV'])->name('form.SPKV')->middleware(UserMiddleware::class);
-Route::get('/form-cetak', [CetakPDF_Controller::class, 'showForm'])->name('form-cetak')->middleware(UserMiddleware::class);
-Route::post('/cetak-pdf', [CetakPDF_Controller::class, 'generatePdf'])->name('cetak-pdf')->middleware(UserMiddleware::class);
+Route::get('/cetak/surat_tidak_mampu', [CetakPDF_Controller::class, 'surat_tidak_mampu_pdf'])->name('cetak.ketTidakMampu')->middleware(UserMiddleware::class);
+Route::get('/cetak/surat_belum_menikah', [CetakPDF_Controller::class, 'surat_belum_menikah_pdf'])->name('cetak.ketBelumMenikah')->middleware(UserMiddleware::class);
+// halaman form isi data pdf
+Route::get('/cetak/formSPKV', [CetakPDF_Controller::class, 'formSPKV'])->name('form.SPKV')->middleware(UserMiddleware::class);
+Route::get('/cetak/formKetTidakMampu', [CetakPDF_Controller::class, 'formKet_tidak_mampu'])->name('form.ketTidakMampu')->middleware(UserMiddleware::class);
+Route::get('/cetak/formKetBelumMenikah', [CetakPDF_Controller::class, 'formKet_belum_menikah'])->name('form.ketBelumMenikah')->middleware(UserMiddleware::class);
+// pengisian form
+Route::post('/cetakSPKV-pdf', [CetakPDF_Controller::class, 'generateSPKV_Pdf'])->name('cetakSPKV-pdf')->middleware(UserMiddleware::class);
+Route::post('/cetakSKTM-pdf', [CetakPDF_Controller::class, 'generateSKTM_Pdf'])->name('cetakSKTMpdf')->middleware(UserMiddleware::class);
+Route::post('/cetakSKBM-pdf', [CetakPDF_Controller::class, 'generateSKBM_Pdf'])->name('cetakSKBMpdf')->middleware(UserMiddleware::class);
 
 // facebook
 Route::get('/facebook-posts', [ArtikelController::class, 'fetchFacebookPosts'])->name('facebook.posts');

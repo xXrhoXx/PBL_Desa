@@ -4,7 +4,7 @@
         <div class="row">
             <!-- Tentang Desa -->
             <div class="col-md-4 mb-4 mb-md-0">
-                <h5>Tentang Desa Wringin Anom</h5>
+                <h5>Tentang Desa Wringinanom</h5>
                 <p>
                     Desa yang maju dengan masyarakat yang sejahtera dan berbudaya,
                     mengedepankan gotong royong dan kearifan lokal.
@@ -15,7 +15,7 @@
             <div class="col-md-4 mb-4 mb-md-0">
                 <h5>Kontak Kami</h5>
                 <ul class="list-unstyled">
-                    <li><i class="bi bi-geo-alt"></i>  Desa Wringin Anom3, Kecamatan Poncokusumo , Kabupaten Malang </li>
+                    <li><i class="bi bi-geo-alt"></i>  Desa Wringinanom, Kecamatan Poncokusumo , Kabupaten Malang </li>
                     <li><i class="bi bi-telephone"></i> (021) 12345678</li>
                     <li><i class="bi bi-envelope"></i> info@wringinanom.id</li>
                 </ul>

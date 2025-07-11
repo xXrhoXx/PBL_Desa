@@ -51,7 +51,7 @@
                         <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-success w-100">Lihat PDF</button>
+                    <button type="submit" class="btn btn-success w-100">Cetak Surat</button>
                 </form>
             </div>
         </div>

@@ -51,6 +51,20 @@
                                 <a href="{{ route('form.ketBelumMenikah') }}" class="btn btn-sm btn-success">Cetak</a>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td>Surat Keterangan Kehilangan Kartu Keluarga</td>
+                            <td class="text-center">
+                                <a href="{{ route('form.ketHilangKK') }}" class="btn btn-sm btn-success">Cetak</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td>Surat Keterangan Domisili Bari</td>
+                            <td class="text-center">
+                                <a href="{{ route('form.ketDominisiBaru') }}" class="btn btn-sm btn-success">Cetak</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

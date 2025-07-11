@@ -10,15 +10,19 @@
     
 
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <div class="container-fluid">
-            <a class="navbar-brand text-white fw-bold" href="#">Admin</a>
-            <div class="d-flex ms-auto">
-                <a href="{{ route('logout') }}" class="btn btn-outline-light">Logout</a>
-            </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white fw-bold" href="#">Admin</a>
+        <div class="d-flex ms-auto">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-light btn-sm">Logout</button>
+            </form>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <div class="d-flex">
         <!-- Sidebar -->

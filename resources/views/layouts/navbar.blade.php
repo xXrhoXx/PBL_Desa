@@ -20,7 +20,7 @@
                         <a class="nav-link {{ request()->routeIs('produk') ? 'active text-white' : '' }}" href="{{ route('produk') }}">Produk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('informasi') ? 'active text-white' : '' }}" href="{{ route('informasi') }}">Informasi</a>
+                        <a class="nav-link {{ request()->routeIs('informasi') ? 'active text-white' : '' }}" href="{{ route('informasi') }}">Perangkat Desa</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cetak.index') ? 'active text-white' : '' }}" href="{{ route('cetak.index') }}">Dokumen</a>

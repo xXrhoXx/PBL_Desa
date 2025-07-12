@@ -95,10 +95,10 @@ public function generateSKTM_Pdf(Request $request)
     $request->validate([
         'nama'            => 'required|string|max:100',
         'nik'             => 'required|string|max:20',
-        'nkk'             => 'required|string|max:20',
+        'no_kk'             => 'required|string|max:20',
         'jenis_kelamin'   => 'required|string|in:Laki-laki,Perempuan',
         'tempat_lahir'    => 'required|string|max:50',
-        'tanggal_lahir'   => 'required|date',
+        'tgl_lahir'   => 'required|date',
         'kewarganegaraan' => 'required|string|max:50',
         'alamat'          => 'required|string|max:255',
     ]);
@@ -107,10 +107,10 @@ public function generateSKTM_Pdf(Request $request)
     $data = [
         'nama'            => $request->nama,
         'nik'             => $request->nik,
-        'nkk'             => $request->nkk,
+        'no_kk'           => $request->no_kk,
         'jenis_kelamin'   => $request->jenis_kelamin,
         'tempat_lahir'    => $request->tempat_lahir,
-        'tanggal_lahir'   => $request->tanggal_lahir,
+        'tgl_lahir'       => $request->tgl_lahir,
         'kewarganegaraan' => $request->kewarganegaraan,
         'alamat'          => $request->alamat,
     ];
@@ -127,12 +127,12 @@ public function generateSKBM_Pdf(Request $request)
     $request->validate([
         'nama'              => 'required|string|max:100',
         'nik'               => 'required|string|max:20',
-        'nkk'               => 'required|string|max:20',
+        'no_kk'               => 'required|string|max:20',
         'jenis_kelamin'     => 'required|string|in:Laki-laki,Perempuan',
         'tempat_lahir'      => 'required|string|max:50',
-        'tanggal_lahir'     => 'required|date',
+        'tgl_lahir'     => 'required|date',
         'agama'             => 'required|string|max:50',
-        'status_perkawinan' => 'required|string|in:Belum Kawin,Kawin',
+        'status'            => 'required|string|in:Belum Kawin,Kawin',
         'kewarganegaraan'   => 'required|string|max:50',
         'alamat'            => 'required|string|max:255',
     ]);
@@ -141,12 +141,12 @@ public function generateSKBM_Pdf(Request $request)
     $data = [
         'nama'              => $request->nama,
         'nik'               => $request->nik,
-        'nkk'               => $request->nkk,
+        'no_kk'               => $request->no_kk,
         'jenis_kelamin'     => $request->jenis_kelamin,
         'tempat_lahir'      => $request->tempat_lahir,
-        'tanggal_lahir'     => $request->tanggal_lahir,
+        'tgl_lahir'     => $request->tgl_lahir,
         'agama'             => $request->agama,
-        'status_perkawinan' => $request->status_perkawinan,
+        'status'            => $request->status,
         'kewarganegaraan'   => $request->kewarganegaraan,
         'alamat'            => $request->alamat,
     ];
@@ -156,7 +156,7 @@ public function generateSKBM_Pdf(Request $request)
     return $pdf->stream('Surat_Keterangan_Belum_Menikah.pdf');
 }
 
-
+// kk hilang
 public function generateSKHKK_Pdf(Request $request)
 {
     // Validasi input form
@@ -165,8 +165,8 @@ public function generateSKHKK_Pdf(Request $request)
         'nik'               => 'required|string|max:20',
         'jenis_kelamin'     => 'required|string|in:Laki-laki,Perempuan',
         'tempat_lahir'      => 'required|string|max:50',
-        'tanggal_lahir'     => 'required|date',
-        'status_perkawinan' => 'required|string|in:Belum Kawin,Kawin',
+        'tgl_lahir'     => 'required|date',
+        'status' => 'required|string|in:Belum Kawin,Kawin',
         'alamat'            => 'required|string|max:255',
     ]);
 
@@ -176,8 +176,8 @@ public function generateSKHKK_Pdf(Request $request)
         'nik'               => $request->nik,
         'jenis_kelamin'     => $request->jenis_kelamin,
         'tempat_lahir'      => $request->tempat_lahir,
-        'tanggal_lahir'     => $request->tanggal_lahir,
-        'status_perkawinan' => $request->status_perkawinan,
+        'tgl_lahir'     => $request->tgl_lahir,
+        'status' => $request->status,
         'alamat'            => $request->alamat,
 
         // Tambahan
@@ -190,32 +190,33 @@ public function generateSKHKK_Pdf(Request $request)
     return $pdf->stream('Surat_Keterangan_Hilang_Kartu_Keluarga.pdf');
 }
 
+// domisili baru
 public function generateSuratDomisili_Pdf(Request $request)
 {
     // Validasi input
     $request->validate([
         'nama'              => 'required|string|max:100',
         'tempat_lahir'      => 'required|string|max:50',
-        'tanggal_lahir'     => 'required|date',
+        'tgl_lahir'     => 'required|date',
         'nik'               => 'required|string|max:20',
         'jenis_kelamin'     => 'required|in:Laki-laki,Perempuan',
         'agama'             => 'required|string|max:20',
-        'status_perkawinan' => 'required|string|max:20',
+        'status' => 'required|string|max:20',
         'kewarganegaraan'   => 'required|string|max:30',
-        'alamat_domisili'   => 'required|string|max:255',
+        'alamat'   => 'required|string|max:255',
     ]);
 
     // Susun data
     $data = [
         'nama'              => $request->nama,
         'tempat_lahir'      => $request->tempat_lahir,
-        'tanggal_lahir'     => $request->tanggal_lahir,
+        'tgl_lahir'     => $request->tgl_lahir,
         'nik'               => $request->nik,
         'jenis_kelamin'     => $request->jenis_kelamin,
         'agama'             => $request->agama,
-        'status_perkawinan' => $request->status_perkawinan,
+        'status' => $request->status,
         'kewarganegaraan'   => $request->kewarganegaraan,
-        'alamat_domisili'   => $request->alamat_domisili,
+        'alamat'   => $request->alamat,
         'tanggal_surat'     => Carbon::now()->toDateString(),
         'nomor'             => '400.10.2.2 / 35.07.07.2014/2024', // bisa dinamis juga kalau perlu
     ];

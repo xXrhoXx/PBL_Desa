@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td class="text-center">5</td>
-                            <td>Surat Keterangan Domisili Bari</td>
+                            <td>Surat Keterangan Domisili Baru</td>
                             <td class="text-center">
                                 <a href="{{ route('form.ketDominisiBaru') }}" class="btn btn-sm btn-success">Cetak</a>
                             </td>

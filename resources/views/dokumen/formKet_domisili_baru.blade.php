@@ -8,17 +8,14 @@
             background-color: rgba(25, 135, 84, 1) !important;
             color: white !important;
         }
-
         .text-custom {
             color: rgba(25, 135, 84, 1) !important;
         }
-
         .btn-custom {
             background-color: rgba(25, 135, 84, 1) !important;
             border-color: rgba(25, 135, 84, 1) !important;
             color: white !important;
         }
-
         .btn-custom:hover {
             background-color: rgba(20, 110, 70, 1) !important;
             border-color: rgba(20, 110, 70, 1) !important;
@@ -39,7 +36,7 @@
                 <h5 class="mb-0">Form Data Diri - Cetak Surat Domisili</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('cetakSKDBpdf') }}" method="POST" target="_blank">
+                <form id="skdForm" method="POST" action="{{ route('cetakSKDBpdf') }}" target="_blank">
                     @csrf
 
                     <div class="mb-3">
@@ -53,8 +50,8 @@
                             <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                            <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                            <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" required>
                         </div>
                     </div>
 
@@ -85,8 +82,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="status_perkawinan" class="form-label">Status Perkawinan</label>
-                        <select class="form-select" id="status_perkawinan" name="status_perkawinan" required>
+                        <label for="status" class="form-label">Status Perkawinan</label>
+                        <select class="form-select" id="status" name="status" required>
                             <option value="Belum Kawin">Belum Kawin</option>
                             <option value="Kawin">Kawin</option>
                             <option value="Cerai Hidup">Cerai Hidup</option>
@@ -100,8 +97,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="alamat_domisili" class="form-label">Alamat Domisili</label>
-                        <textarea class="form-control" id="alamat_domisili" name="alamat_domisili" rows="3" required></textarea>
+                        <label for="alamat" class="form-label">Alamat Domisili</label>
+                        <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-custom w-100">Cetak Surat</button>
@@ -111,5 +108,54 @@
     </div>
 
     @include('layouts.footer')
+
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        document.getElementById('skdForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const token = getCookie('token');
+            if (!token) {
+                alert("Token tidak ditemukan.");
+                return;
+            }
+
+            const form = e.target;
+            const data = {
+                nama: form.nama.value,
+                nik: form.nik.value,
+                tempat_lahir: form.tempat_lahir.value,
+                tgl_lahir: form.tgl_lahir.value,
+                jenis_kelamin: form.jenis_kelamin.value,
+                agama: form.agama.value,
+                status: form.status.value,
+                kewarganegaraan: form.kewarganegaraan.value,
+                alamat: form.alamat.value
+            };
+
+            const url = `http://127.0.0.1:8000/api/riwayat-skdb`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Gagal menyimpan riwayat ke API.');
+                form.submit(); // lanjutkan ke cetak PDF
+            })
+            .catch(error => {
+                alert("Terjadi kesalahan:\n" + error.message);
+            });
+        });
+    </script>
 </body>
 </html>

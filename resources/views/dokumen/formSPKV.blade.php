@@ -18,7 +18,7 @@
                 <h5 class="mb-0">Form Data Diri - Cetak SPKV</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('cetakSPKV-pdf') }}" method="POST" target="_blank">
+                <form id="spkvForm" method="POST" action="{{ route('cetakSPKV-pdf') }}" target="_blank">
                     @csrf
 
                     <div class="mb-3">
@@ -58,5 +58,50 @@
     </div>
 
     @include('layouts.footer')
+
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        document.getElementById('spkvForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // prevent default form submission
+
+            const token = getCookie('token'); // Get token from cookie
+            if (!token) {
+                alert("Token tidak ditemukan di cookie.");
+                return;
+            }
+
+            const form = e.target;
+
+            const data = {
+                nama: form.nama.value,
+                nik: form.nik.value,
+                no_kk: form.kk.value,
+                tgl_lahir: form.tanggal_lahir.value,
+                no_bpjs: form.noka.value,
+                alamat: form.alamat.value
+            };
+
+            const url = `http://127.0.0.1:8000/api/riwayat-spkv?token=${encodeURIComponent(token)}&nama=${encodeURIComponent(data.nama)}&nik=${encodeURIComponent(data.nik)}&no_kk=${encodeURIComponent(data.no_kk)}&tgl_lahir=${encodeURIComponent(data.tgl_lahir)}&no_bpjs=${encodeURIComponent(data.no_bpjs)}&alamat=${encodeURIComponent(data.alamat)}`;
+
+            fetch(url, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Gagal menyimpan riwayat ke API.");
+                }
+                // If success, submit form to generate PDF
+                form.submit();
+            })
+            .catch(error => {
+                alert("Terjadi kesalahan saat mengirim data ke API:\n" + error.message);
+            });
+        });
+    </script>
 </body>
 </html>

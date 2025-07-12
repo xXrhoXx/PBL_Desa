@@ -124,12 +124,12 @@
         <table class="data-table">
             <tr><td>Nama</td><td>:</td><td>{{ strtoupper($nama) }}</td></tr>
             <tr><td>NIK</td><td>:</td><td>{{ $nik }}</td></tr>
-            <tr><td>NKK</td><td>:</td><td>{{ $nkk }}</td></tr>
+            <tr><td>N0_KK</td><td>:</td><td>{{ $no_kk }}</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td>{{ $jenis_kelamin }}</td></tr>
             <tr>
                 <td>Tempat/tgl.lahir</td>
                 <td>:</td>
-                <td>{{ $tempat_lahir }}, {{ \Carbon\Carbon::parse($tanggal_lahir)->format('d-m-Y') }}</td>
+                <td>{{ $tempat_lahir }}, {{ \Carbon\Carbon::parse($tgl_lahir)->format('d-m-Y') }}</td>
             </tr>
             <tr><td>Kewarganegaraan</td><td>:</td><td>{{ $kewarganegaraan }}</td></tr>
             <tr>

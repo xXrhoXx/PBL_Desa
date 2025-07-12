@@ -18,7 +18,7 @@
                 <h5 class="mb-0">Form Data Diri - SKTM</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('cetakSKTMpdf') }}" method="POST" target="_blank">
+                <form id="sktmForm" method="POST" action="{{ route('cetakSKTMpdf') }}" target="_blank">
                     @csrf
 
                     <div class="mb-3">
@@ -32,8 +32,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="nkk" class="form-label">Nomor Kartu Keluarga (NKK)</label>
-                        <input type="text" class="form-control" id="nkk" name="nkk" required>
+                        <label for="no_kk" class="form-label">Nomor Kartu Keluarga </label>
+                        <input type="text" class="form-control" id="no_kk" name="no_kk" required>
                     </div>
 
                     <div class="mb-3">
@@ -51,8 +51,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                        <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" required>
                     </div>
 
                     <div class="mb-3">
@@ -72,5 +72,56 @@
     </div>
 
     @include('layouts.footer')
+
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        document.getElementById('sktmForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const token = getCookie('token');
+            if (!token) {
+                alert("Token tidak ditemukan dalam cookie.");
+                return;
+            }
+
+            const form = e.target;
+
+            const data = {
+                nama: form.nama.value,
+                nik: form.nik.value,
+                no_kk: form.no_kk.value,
+                jenis_kelamin: form.jenis_kelamin.value,
+                tempat_lahir: form.tempat_lahir.value,
+                tgl_lahir: form.tgl_lahir.value,
+                kewarganegaraan: form.kewarganegaraan.value,
+                alamat: form.alamat.value,
+            };
+
+            const url = `http://127.0.0.1:8000/api/riwayat-sktm`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Gagal menyimpan riwayat SKTM ke API.");
+                }
+                form.submit(); // lanjut cetak PDF
+            })
+            .catch(error => {
+                alert("Gagal mengirim data ke API: " + error.message);
+            });
+        });
+    </script>
 </body>
 </html>

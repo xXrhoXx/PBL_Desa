@@ -121,13 +121,13 @@
         Yang bertanda tangan dibawah ini, Kepala Desa Wringinanom Kecamatan Poncokusumo Kabupaten Malang. Menerangkan dengan sebenarnya bahwa :
 
         <table class="data-table">
-            <tr><td>N a m a</td><td>:</td><td>{{ $nama }}</td></tr>
-            <tr><td>Tempat / Tgl Lahir</td><td>:</td><td>{{ $tempat_lahir }}, {{ \Carbon\Carbon::parse($tanggal_lahir)->translatedFormat('d/m/Y') }}</td></tr>
+            <tr><td>Nama</td><td>:</td><td>{{ $nama }}</td></tr>
+            <tr><td>Tempat / Tgl Lahir</td><td>:</td><td>{{ $tempat_lahir }}, {{ \Carbon\Carbon::parse($tgl_lahir)->translatedFormat('d/m/Y') }}</td></tr>
             <tr><td>NIK</td><td>:</td><td>{{ $nik }}</td></tr>
-            <tr><td>NKK</td><td>:</td><td>{{ $nkk }}</td></tr>
+            <tr><td>NKK</td><td>:</td><td>{{ $no_kk }}</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td>{{ $jenis_kelamin }}</td></tr>
             <tr><td>Agama</td><td>:</td><td>{{ $agama }}</td></tr>
-            <tr><td>Status Perkawinan</td><td>:</td><td>{{ $status_perkawinan }}</td></tr>
+            <tr><td>Status Perkawinan</td><td>:</td><td>{{ $status }}</td></tr>
             <tr><td>Kewarganegaraan</td><td>:</td><td>{{ $kewarganegaraan }}</td></tr>
             <tr><td>Alamat</td><td>:</td><td>{{ $alamat }}</td></tr>
         </table>

@@ -18,32 +18,32 @@
                 <h5 class="mb-0">Form Data Diri - Cetak Surat Keterangan</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('cetakSKBMpdf') }}" method="POST" target="_blank">
+                <form id="skbmForm" action="{{ route('cetakSKBMpdf') }}" method="POST" target="_blank">
                     @csrf
 
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama" name="nama"  required>
+                        <input type="text" class="form-control" id="nama" name="nama" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"  required>
+                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                        <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="nik" class="form-label">NIK</label>
-                        <input type="text" class="form-control" id="nik" name="nik"  required>
+                        <input type="text" class="form-control" id="nik" name="nik" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="kk" class="form-label">Nomor Kartu Keluarga (KK)</label>
-                        <input type="text" class="form-control" id="nkk" name="nkk" required>
+                        <label for="no_kk" class="form-label">Nomor Kartu Keluarga (KK)</label>
+                        <input type="text" class="form-control" id="no_kk" name="no_kk" required>
                     </div>
 
                     <div class="mb-3">
@@ -56,12 +56,12 @@
 
                     <div class="mb-3">
                         <label for="agama" class="form-label">Agama</label>
-                        <input type="text" class="form-control" id="agama" name="agama"  required>
+                        <input type="text" class="form-control" id="agama" name="agama" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="status_perkawinan" class="form-label">Status Perkawinan</label>
-                        <select class="form-select" id="status_perkawinan" name="status_perkawinan" required>
+                        <label for="status" class="form-label">Status Perkawinan</label>
+                        <select class="form-select" id="status" name="status" required>
                             <option value="Belum Kawin" selected>Belum Kawin</option>
                             <option value="Kawin">Kawin</option>
                         </select>
@@ -84,5 +84,58 @@
     </div>
 
     @include('layouts.footer')
+
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        document.getElementById('skbmForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Cegah submit default
+
+            const token = getCookie('token');
+            if (!token) {
+                alert("Token tidak ditemukan di cookie.");
+                return;
+            }
+
+            const form = e.target;
+
+            const data = {
+                nama: form.nama.value,
+                nik: form.nik.value,
+                no_kk: form.no_kk.value,
+                jenis_kelamin: form.jenis_kelamin.value,
+                tempat_lahir: form.tempat_lahir.value,
+                tgl_lahir: form.tgl_lahir.value,
+                kewarganegaraan: form.kewarganegaraan.value,
+                agama: form.agama.value,
+                status: form.status.value,
+                alamat: form.alamat.value
+            };
+
+            const url = `http://127.0.0.1:8000/api/riwayat-skbm`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Gagal menyimpan riwayat SKBM ke API.");
+                }
+                form.submit(); // Lanjut cetak PDF
+            })
+            .catch(error => {
+                alert("Terjadi kesalahan saat mengirim data ke API:\n" + error.message);
+            });
+        });
+    </script>
 </body>
 </html>

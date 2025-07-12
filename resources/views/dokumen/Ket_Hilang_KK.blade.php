@@ -116,10 +116,10 @@
         Yang bertanda tangan di bawah ini Kepala Desa Wringinanom menerangkan bahwa:
         <table class="data-table">
             <tr><td>Nama</td><td>:</td><td>{{ $nama }}</td></tr>
-            <tr><td>Tempat/tgl lahir</td><td>:</td><td>{{ $tempat_lahir }}, {{ \Carbon\Carbon::parse($tanggal_lahir)->format('d/m/Y') }}</td></tr>
+            <tr><td>Tempat/tgl lahir</td><td>:</td><td>{{ $tempat_lahir }}, {{ \Carbon\Carbon::parse($tgl_lahir)->format('d/m/Y') }}</td></tr>
             <tr><td>Jenis kelamin</td><td>:</td><td>{{ $jenis_kelamin }}</td></tr>
             <tr><td>NIK</td><td>:</td><td>{{ $nik }}</td></tr>
-            <tr><td>Status Perkawinan</td><td>:</td><td>{{ $status_perkawinan }}</td></tr>
+            <tr><td>Status Perkawinan</td><td>:</td><td>{{ $status }}</td></tr>
             <tr><td>Alamat</td><td>:</td><td>{{ $alamat }}</td></tr>
         </table>
 

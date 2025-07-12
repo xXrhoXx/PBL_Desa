@@ -9,7 +9,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\CetakPDF_Controller;
-
+use App\Http\Controllers\PerangkatDesaApiController;
 
 //cuy
 Route::get('/admin/dashboard', function () {
@@ -126,3 +126,9 @@ Route::get('/post-to-facebook', function () {
 
     Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk.user');
 });
+
+
+
+// perangkat desa API
+Route::view('/form-perangkat', 'perangkat.form');
+Route::post('/cek-perangkat-desa', [PerangkatDesaApiController::class, 'getPerangkatDesa'])->name('cek.perangkat');

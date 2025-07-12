@@ -17,7 +17,7 @@
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card border-0 shadow-sm h-100">
                         <div class="card-img-top team-img"
-                             style="background-image: url('{{ asset('storage/' . $orang->foto) }}'); height: 300px; background-size: cover; background-position: center;">
+                            style="background-image: url('{{ asset('storage/' . $orang->foto) }}'); height: 300px; background-size: cover; background-position: center;">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title mb-1">{{ $orang->nama }}</h5>

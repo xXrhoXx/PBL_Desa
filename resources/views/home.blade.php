@@ -118,38 +118,42 @@
     </section>
 
     <!-- Produk Unggulan -->
-    <section class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Produk Unggulan Desa</h2>
-                <p class="lead">Berbagai produk lokal unggulan dari masyarakat desa kami</p>
-            </div>
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Produk Unggulan Desa</h2>
+            <p class="lead">Berbagai produk lokal unggulan dari masyarakat desa kami</p>
+        </div>
 
-            <div class="row">
-                @forelse ($produk as $p)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow">
-                        <img src="{{ asset('storage/' . $p->gambar) }}" class="card-img-top" alt="{{ $p->nama_produk }}" style="max-width: 100%; height: 250px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $p->nama_produk }}</h5>
-                            <p class="card-text">{{ $p->deskripsi }}</p>
-                            <p class="text-success fw-bold">Rp {{ number_format($p->harga, 0, ',', '.') }}</p>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $p->kontak) }}" target="_blank" class="btn btn-success w-100">
-                                Hubungi: {{ $p->kontak }}
-                            </a>
-                        </div>
-                    </div>
+        <div class="row">
+        @forelse ($produk as $p)
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow">
+                <img src="data:image/jpeg;base64,{{ $p->gambar }}" class="card-img-top" alt="{{ $p->nama_produk }}" style="max-width: 100%; height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $p->nama_produk }}</h5>
+                    <p class="card-text">{{ $p->deskripsi }}</p>
+                    <p class="text-success fw-bold">{{ $p->harga }}</p>
                 </div>
-                @empty
-                <div class="col-12 text-center">
-                    <p>Belum ada produk tersedia.</p>
+                <div class="card-footer bg-white">
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $p->kontak) }}?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20{{ urlencode($p->nama_produk) }}"
+                        target="_blank"
+                        class="btn btn-success w-100">
+                        Hubungi via WhatsApp
+                    </a>
                 </div>
-                @endforelse
             </div>
         </div>
-    </section>
+        @empty
+        <div class="col-12">
+            <p class="text-center">Belum ada produk yang tersedia.</p>
+        </div>
+        @endforelse
+
+        </div>
+    </div>
+</section>
+
 
 </main>
 @endsection

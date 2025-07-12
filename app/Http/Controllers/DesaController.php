@@ -14,11 +14,12 @@ use App\Models\Produk;
 
 class DesaController extends Controller
 {
-    public function home()
+public function home()
     {
-        $response = Http::get('http://127.0.0.1:8000/api/produks');
-        $produk = $response->json();
+        $response = Http::get('http://127.0.0.1:8000/api/produk-user');
+        $produk = json_decode(json_encode($response->json())); // fix array jadi object
         $perangkat = PerangkatDesa::all();
+        //dd($response->json());
         return view('home', compact('produk', 'perangkat'));
     }
 

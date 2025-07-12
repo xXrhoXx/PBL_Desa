@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Artikel;
-use App\Models\PerangkatDesa; 
+use App\Models\PerangkatDesa;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,13 +14,14 @@ use App\Models\Produk;
 
 class DesaController extends Controller
 {
-public function home()
-{
-    $produk = Produk::latest()->take(6)->get(); 
-    $perangkat = PerangkatDesa::all(); 
+    public function home()
+    {
+        $response = Http::get('http://127.0.0.1:8000/api/produks');
+        $produk = $response->json();
+        $perangkat = PerangkatDesa::all();
+        return view('home', compact('produk', 'perangkat'));
+    }
 
-    return view('home', compact('produk', 'perangkat'));
-}
 
 public function berita(Request $request)
 {
@@ -86,10 +87,12 @@ public function berita(Request $request)
 }
 
     public function produk()
-{
-    $produk = Produk::all(); 
-    return view('produk', compact('produk')); 
-}
+    {
+        $response = Http::get('http://127.0.0.1:8000/api/produk-user');
+        $produk = json_decode(json_encode($response->json())); // fix array jadi object
+
+        return view('produk', compact('produk'));
+    }
 
     public function informasi()
 {

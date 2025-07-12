@@ -124,7 +124,7 @@ Route::get('/post-to-facebook', function () {
 
     return $err ? "cURL Error: $err" : "Response: $response";
 
-    Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk.user');
+   // Route::get('/produk', [ProdukController::class, 'produkUser'])->name('produk.user');
 });
 
 
